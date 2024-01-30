@@ -1,0 +1,25 @@
+Welcome to Your E-commerce Website!
+
+For Shop Keepers:
+1. Registration:
+   - Shopkeepers can register on the platform, providing necessary details, including the shop's location.
+2. Product Management:
+   - Shopkeepers can add, remove, and update products, ensuring a dynamic and up-to-date inventory.
+3. Inventory Control:
+   - Efficiently manage the availability of products, allowing shopkeepers to update stock levels and keep track of inventory.
+4. Order Management:
+   - Shopkeepers can view incoming orders, check order details, and update the status of each order, providing a streamlined order fulfillment process.
+
+For Users:
+1. User Registration:
+   - Users can register on the platform, providing personal details and their address for smooth order deliveries.
+2. Product Search:
+   - Users can search for products within a specified radius of their location, ensuring a convenient and localized shopping experience.
+3. Order Placement:
+   - Once a user finds a desired product, they can easily select, add it to their cart, and proceed to order placement.
+4. Secure Payment:
+   - Users can make secure payments for their orders through various payment options provided on the platform.
+5. Order Tracking:
+   - Users can track the status of their orders, from confirmation to delivery, providing transparency and a positive user experience.
+
+This platform aims to create a seamless connection between shopkeepers and users, allowing shopkeepers to manage their inventory efficiently and users to enjoy a hassle-free shopping experience.
