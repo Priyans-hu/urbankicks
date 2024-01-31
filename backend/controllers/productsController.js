@@ -10,6 +10,18 @@ const getAllProducts = async (req, res) => {
     }
 };
 
+const getProductsByCategory = async (req, res) => {
+    const { category } = req.params;
+
+    try {
+        const products = await Product.find({ categories: category });
+        res.json(products);
+    } catch (error) {
+        console.error('Error fetching products by category:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
 const createProduct = async (req, res) => {
     const newProduct = req.body;
 
@@ -71,6 +83,7 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
     getAllProducts,
+    getProductsByCategory,
     createProduct,
     getProductById,
     updateProduct,

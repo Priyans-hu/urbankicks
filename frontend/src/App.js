@@ -11,17 +11,19 @@ import RegisterPage from './pages/RegisterPage';
 import OrderHistoryPage from './pages/OrderHistoryPage';
 import Contact from './pages/Contact';
 import AuthMiddleware from './middleware/IsAuth';
+import CategoryPage from './pages/CategoryPage';
 
 function App() {
 	return (
 		<Router>
 			<Routes>
 				<Route path="/" element={<HomePage />} />
-				<Route path="/products" element={<ProductPage />} />
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/register" element={<RegisterPage />} />
-				<Route path="/contact" element={<Contact />} />
+				<Route path="/products" element={<ProductPage />} />
+				<Route path="/products/category/:type" element={<CategoryPage />} />
 				<Route path="/product/:productId" element={<ProductDetailPage />} />
+				<Route path="/contact" element={<Contact />} />
 
 				{/* Use AuthMiddleware for protected routes */}
 				<Route

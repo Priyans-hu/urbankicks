@@ -12,6 +12,10 @@ class ProductApi {
         return this.productApi.get('/');
     }
 
+    getProductsByCategory(category) {
+        return this.productApi.get(`/category/${category}`);
+    }
+
     getProductById(productId) {
         return this.productApi.get(`/${productId}`);
     }
@@ -29,4 +33,5 @@ class ProductApi {
     }
 }
 
-export default new ProductApi();
+const ProductApiInstacnce = new ProductApi();
+export default ProductApiInstacnce;

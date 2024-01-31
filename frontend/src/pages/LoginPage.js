@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // import uselogin hook
 import useLogin from '../hooks/useLogin';
 // import toastify notifications
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);

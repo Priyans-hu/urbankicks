@@ -1,19 +1,35 @@
 import React from 'react';
+import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useThemeContext } from '../Context/themeContext';
 
 
 const Header = () => {
-    const {state}=useAuth();
+    const { state } = useAuth();
     const { isDarkTheme, toggleTheme } = useThemeContext();
     const { user, logout } = useAuth();
+    const [showConfirmation, setShowConfirmation] = useState(false);
+
+    const handleLogout = () => {
+        setShowConfirmation(true);
+    };
+
+    const confirmLogout = () => {
+        logout();
+        setShowConfirmation(false);
+    };
+
+    const cancelLogout = () => {
+        setShowConfirmation(false);
+    };
+
 
     const renderAuthButton = () => {
         if (state.isAuthenticated) {
             // User is authenticated, show Logout button
             return (
                 <a href="/">
-                    <div className='cursor-pointer bg-gray-300 p-2 rounded-full' onClick={logout}>
+                    <div className='cursor-pointer bg-gray-300 p-2 rounded-full' onClick={handleLogout}>
                         <span role="img" aria-label="Logout">👋 Logout</span>
                     </div>
                 </a>
@@ -36,10 +52,10 @@ const Header = () => {
 
             <div className='flex items-center space-x-4'>
                 <div className='cursor-pointer'>
-                    <a href="/category/men">Men</a>
+                    <a href="/products/category/men">Men</a>
                 </div>
                 <div className='cursor-pointer'>
-                    <a href="/category/women">Women</a>
+                    <a href="/products/category/women">Women</a>
                 </div>
             </div>
 
@@ -61,6 +77,23 @@ const Header = () => {
 
                 {/* Conditionally render Login/Logout button */}
                 {renderAuthButton()}
+
+                {/* Confirmation dialog */}
+                {showConfirmation && (
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-4 rounded-md">
+                        <p>{user ? `${user.username}, are you sure you want to logout?` : 'Are you sure you want to logout?'}</p>
+                        <div className="flex justify-end mt-4">
+                            <button className="mr-4 bg-gray-300 p-2 rounded-full" onClick={confirmLogout}>
+                                Confirm
+                            </button>
+                            <button className="bg-gray-300 p-2 rounded-full" onClick={cancelLogout}>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
             </div>
         </header>
     );

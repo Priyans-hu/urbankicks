@@ -6,6 +6,7 @@ const isAuth = require('../middleware/isAuth');
 // public Routes
 router.get('/', productController.getAllProducts);
 router.get('/:id', productController.getProductById);
+router.get('/category/:category', productController.getProductsByCategory);
 
 // authenticated routes
 router.post('/', isAuth, productController.createProduct);
