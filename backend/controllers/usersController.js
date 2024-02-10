@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
         // Create a new user with the hashed password
         const newUser = new Users({ username, email, password: hashedPassword });
         const savedUser = await newUser.save();
-        
+
         // Generate a JWT token
         const token = jwt.sign({ userId: savedUser._id }, 'your-secret-key', { expiresIn: '2h' });
 
@@ -35,33 +35,33 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    
+
     try {
         // Check if the user exists
         const user = await Users.findOne({ email });
-        
+
         if (!user) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
-        
+
         // Check if the password is correct
         const isPasswordValid = await bcrypt.compare(password, user.password);
-        
+
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
         // Generate a JWT token
-        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '2h' });
+        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '24h' });
 
         // Send the token as a cookie
-        res.cookie('jwt', token, { httpOnly: true });
+        res.cookie('jwt', token, { httpOnly: true, secure: true });
 
         // You can also send the token in the response if needed
         // res.status(200).json({ message: 'Login successful', token });
-        res.status(200).json({ 
-            message: 'Login successful', 
-            user: {email}
+        res.status(200).json({
+            message: 'Login successful',
+            user: { email }
         });
     } catch (error) {
         console.error(error);
@@ -82,8 +82,36 @@ const logoutUser = async (req, res) => {
     }
 };
 
+const getUserDetails = async (req, res) => {
+    try {
+        // Assuming you have the user email available in the request object after authentication
+        const { email } = req.body;
+        console.log(email);
+
+        // Fetch user details based on the user email
+        const userDetails = await Users.findOne({ email });
+
+        if (!userDetails) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Return user details
+        res.json({
+            id: userDetails._id,
+            name: userDetails.name,
+            email: userDetails.email,
+        });
+        console.log(res.json());
+    } catch (error) {
+        console.error('Error fetching user details:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
 module.exports = {
     registerUser,
     loginUser,
     logoutUser,
+    getUserDetails,
 };

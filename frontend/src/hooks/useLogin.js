@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import userApi from '../api/userApi';
 import { useAuth } from '../hooks/useAuth';
+
 // import toastify notifications
 import { toast } from 'react-toastify';
 
@@ -16,7 +17,7 @@ const useLogin = () => {
             setLoading(true);
 
             const response = await userApi.loginUser(credentials);
-            console.log("this is in uselogin " + response);
+            // console.log("this is in uselogin " + response.json());
             if (response.user) {
                 // Update user state on successful login
                 login(response.user);

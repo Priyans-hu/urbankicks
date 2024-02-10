@@ -38,9 +38,11 @@ const CategoryPage = () => {
                                 <Card key={product._id} item={product} />
                             ))
                         ) : (
-                            <p className="text-center mt-4">
-                                Sorry, nothing right now! More products on the way.
-                            </p>
+                            <div className='flex items-center text-center justify-center flex-col min-h-[44vh]'>
+                                <p className="text-center mt-4">Sorry, nothing right now! More products on the way.</p>
+                                <a href="/products" className="mt-8 bg-green-600 text-white text-xl py-2 px-4 rounded-full hover:bg-gray-300">Shop Now</a>
+                            </div>
+
                         )}
                     </div>
                 )}

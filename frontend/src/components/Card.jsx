@@ -17,7 +17,7 @@ const Card = ({ item }) => {
                 className="w-full h-full object-cover rounded-full"
             />
             <div className="absolute top-2 left-2 text-black font-bold text-lg">{name}</div>
-            <div className="absolute bottom-2 right-2 text-orange-500 font-bold text-xl">₹{price}</div>
+            <div className="absolute bottom-2 right-2 text-orange-500 mt-4 font-bold text-2xl">₹{price}</div>
             <div
                 className="absolute inset-0 cursor-pointer"
                 onClick={handleClick}

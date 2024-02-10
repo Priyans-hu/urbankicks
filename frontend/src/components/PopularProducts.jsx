@@ -26,7 +26,7 @@ const PopularProducts = () => {
     return (
         <div className='m-8 mt-16'>
             <h1 className='text-5xl ml-8'>Popular Products</h1>
-            <div className="flex justify-around m-auto my-8 flex-wrap w-[85%]">
+            <div className="flex justify-around m-auto my-8 flex-wrap w-[90%] lg:w-[85%]">
                 {PopularProducts.map((product) => (
                     <Card key={product._id} item={product} />
                 ))}

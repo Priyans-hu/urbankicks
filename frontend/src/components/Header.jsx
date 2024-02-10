@@ -29,7 +29,7 @@ const Header = () => {
             // User is authenticated, show Logout button
             return (
                 <a href="/">
-                    <div className='cursor-pointer bg-gray-300 p-2 rounded-full' onClick={handleLogout}>
+                    <div className='cursor-pointer bg-gray-300 p-2 rounded-full' onClick={logout}>
                         <span role="img" aria-label="Logout">👋 Logout</span>
                     </div>
                 </a>
@@ -47,7 +47,7 @@ const Header = () => {
     };
 
     return (
-        <header className="bg-white text-black p-4 px-8 flex items-center justify-between">
+        <header className="bg-white text-black p-4 px-8 flex items-center justify-between border-b">
             <a href="/"><h1 className="text-4xl font-semibold">UrbanKicks</h1></a>
 
             <div className='flex items-center space-x-4'>
@@ -66,12 +66,14 @@ const Header = () => {
                 >
                     {isDarkTheme ? '☀️' : '🌙'}
                 </button>
-                <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
-                    <span role="img" aria-label="Search">🔍</span>
-                </div>
                 <a href="/cart">
                     <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
                         <span role="img" aria-label="Cart">🛒</span>
+                    </div>
+                </a>
+                <a href="/myaccount">
+                    <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
+                        <span role="img" aria-label="myAccount">👤</span>
                     </div>
                 </a>
 
@@ -80,20 +82,20 @@ const Header = () => {
 
                 {/* Confirmation dialog */}
                 {showConfirmation && (
-                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-4 rounded-md">
-                        <p>{user ? `${user.username}, are you sure you want to logout?` : 'Are you sure you want to logout?'}</p>
-                        <div className="flex justify-end mt-4">
-                            <button className="mr-4 bg-gray-300 p-2 rounded-full" onClick={confirmLogout}>
-                                Confirm
-                            </button>
-                            <button className="bg-gray-300 p-2 rounded-full" onClick={cancelLogout}>
-                                Cancel
-                            </button>
+                    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-4 rounded-md">
+                            <p>{user ? `${user.username}, are you sure you want to logout?` : 'Are you sure you want to logout?'}</p>
+                            <div className="flex justify-end mt-4">
+                                <button className="mr-4 bg-gray-300 p-2 rounded-full" onClick={confirmLogout}>
+                                    Confirm
+                                </button>
+                                <button className="bg-gray-300 p-2 rounded-full" onClick={cancelLogout}>
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
             </div>
         </header>
     );

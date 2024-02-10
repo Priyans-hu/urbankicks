@@ -12,6 +12,10 @@ class OrderApi {
         return this.orderApi.get('/');
     }
 
+    getUserOrders(userId) {
+        return this.orderApi.get(`/user/${userId}`);
+    }
+
     createOrder(orderData) {
         return this.orderApi.post('/', orderData);
     }

@@ -10,6 +10,20 @@ const getAllOrders = async (req, res) => {
     }
 };
 
+const getUserOrders = async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        // Fetch orders based on the user ID
+        const userOrders = await Order.find({ user_id: userId });
+        res.json(userOrders);
+    } catch (error) {
+        console.error('Error fetching user orders:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
 const createOrder = async (req, res) => {
     const newOrder = req.body;
 
@@ -75,6 +89,7 @@ const deleteOrder = async (req, res) => {
 
 module.exports = {
     getAllOrders,
+    getUserOrders,
     createOrder,
     getOrderById,
     updateOrderStatus,

@@ -19,12 +19,23 @@ class UserApi {
     async loginUser(credentials) {
         const res = await this.userApi.post('/login', credentials);
         console.log(res.data);
+        localStorage.setItem('userEmail', res.data.user.email);
         return res.data;
     }
 
     async logoutUser() {
         const res = await this.userApi.post('/logout', true);
         return res.data;
+    }
+    
+    async getUserDetails(email) {
+        try {
+            const res = await this.userApi.get('/details', email);
+            return res.data;
+        } catch (error) {
+            console.error('Error fetching user details:', error);
+            throw error;
+        }
     }
 }
 
