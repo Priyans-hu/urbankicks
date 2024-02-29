@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-// imports for header footer components
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-// import for product api
 import ProductApi from '../api/productApi';
 import orderApi from '../api/orderApi';
-// import for cart context
 import { useCart } from '../hooks/useCart';
-// import for toastify notifications
 import { toast } from 'react-toastify'; 
 
 

@@ -14,6 +14,8 @@ import AuthMiddleware from './middleware/IsAuth';
 import CategoryPage from './pages/CategoryPage';
 import NotFound from './pages/NotFound';
 import UserAccount from './pages/UserAccount';
+import AdminPage from './pages/AdminPage';
+import AddProduct from './pages/AddProduct';
 
 function App() {
 	return (
@@ -26,6 +28,10 @@ function App() {
 				<Route path="/products/category/:type" element={<CategoryPage />} />
 				<Route path="/product/:productId" element={<ProductDetailPage />} />
 				<Route path="/contact" element={<Contact />} />
+				
+				{/* Admin Control routes */}
+				<Route path="/admin/dashboard" element={<AdminPage />} />
+				<Route path="/admin/dashboard/newProduct" element={<AddProduct />} />
 
 				{/* Use AuthMiddleware for protected routes */}
 				<Route path="/order-history" element={<AuthMiddleware element={<OrderHistoryPage />} />} />
