@@ -53,7 +53,7 @@ const AdminPage = () => {
                 <div>
                     <div className='flex justify-between items-center m-4'>
                         <h3 className="text-2xl font-bold mb-2">All Products</h3>
-                        <a href="/admin/dashboard/newProduct"><button className='font-bold bg-green-500 px-4 py-2 rounded-2xl'>Add Product</button></a>
+                        <a href="/admin/dashboard/newProduct"><button className='font-bold text-white bg-green-600 px-4 py-2 rounded-2xl'>Add Product</button></a>
                     </div>
                     <ul>
                         <table className="min-w-full divide-y divide-gray-200">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ProductApiInstance from '../api/productApi';
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 
 const AddProductForm = () => {
     const [formData, setFormData] = useState({
@@ -85,7 +85,9 @@ const AddProductForm = () => {
                     <label htmlFor="category" className="block">Category:</label>
                     <input type="text" id="category" name="category" value={formData.category} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" />
                 </div>
-                <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add Product</button>
+                <div className='flex justify-center'>
+                    <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md w-1/2">Add Product</button>
+                </div>
             </form>
         </div>
     );

@@ -26,7 +26,7 @@ const ProductsPage = () => {
         <div>
             <Header />
             <div className='m-8'>
-                <h1 className='text-5xl ml-8 text-center'>Our Products</h1>
+                <h1 className='text-5xl ml-8 font-bold text-center'>Our Products</h1>
                 {error ? (
                     <p className="text-red-500 text-center mt-4">{error}</p>
                 ) : (

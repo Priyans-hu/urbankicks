@@ -30,13 +30,15 @@ class UserApi {
     
     async getUserDetails(email) {
         try {
-            const res = await this.userApi.get('/details', email);
+            email = email.userEmail;
+            const res = await this.userApi.get(`/details?email=${email}`);
             return res.data;
         } catch (error) {
-            console.error('Error fetching user details:', error);
+            // console.error('Error fetching user details:', error);
             throw error;
         }
     }
 }
 
-export default new UserApi();
+const UserApiInstacnce = new UserApi();
+export default UserApiInstacnce;

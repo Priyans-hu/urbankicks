@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useCart } from '../hooks/useCart';
@@ -49,9 +49,11 @@ const Cart = () => {
 
                 {/* if cart length is zero then the cart is empty */}
                 {cartItems.length === 0 ? (
-                    <div className='flex items-center'>
-                        <p>Your shopping cart is empty.</p>
-                        <a href="/products"><button className='p-6 py-3 mx-4 bg-black text-white rounded-full'>Start shopping</button></a>
+                    <div className='w-full flex items-center min-h-[65vh] justify-center'>
+                        <div className='flex flex-col items-center'>
+                            <p>Your shopping cart is empty.</p>
+                            <a href="/products"><button className='p-6 py-3 m-4 bg-green-500 text-white rounded-full'>Start shopping</button></a>
+                        </div>
                     </div>
                 ) : (
                     <div className='max-w-[70%] m-auto'>
