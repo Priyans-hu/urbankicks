@@ -4,21 +4,18 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProductApi from '../api/productApi';
 import orderApi from '../api/orderApi';
-import { useCart } from '../hooks/useCart';
 import { toast } from 'react-toastify'; 
-
+import cartApi from '../api/cartApi';
+import userApi from '../api/userApi';
 
 const ProductDetailPage = () => {
     const { productId } = useParams();
     const [productDetails, setProductDetails] = useState(null);
-    const { addToCart } = useCart();
 
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
-                // Use the productId from the URL params
                 const response = await ProductApi.getProductById(productId);
-
                 setProductDetails(response.data);
             } catch (error) {
                 console.error('Error fetching product details:', error);
@@ -40,17 +37,38 @@ const ProductDetailPage = () => {
         });
     }
 
-    const addCartHandler = (product) => {
-        addToCart(product);
-        toast.success(`${product.name} added to cart`, {
-            position: 'bottom-right',
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-        });
-    };
+    const addCartHandler = async (product) => {
+        try {
+            const userEmail = localStorage.getItem('userEmail');
+            const userResponse = await userApi.getUserDetails({userEmail});
+            const userId = userResponse.id;
+            localStorage.setItem('userId', userId);
+            
+            if (!userId) {
+                throw new Error('User not logged in');
+            }
+    
+            await cartApi.addItemToCart(userId, productId, 1, product.price);
+            toast.success(`${product.name} added to cart`, {
+                position: 'bottom-right',
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+            });
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+            toast.error('Failed to add to cart. Please try again.', {
+                position: 'bottom-right',
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+            });
+        }
+    };    
 
     return (
         <div>

@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 // importing all the contexts
 import { AuthProvider } from './Context/authContext';
 import { ThemeProvider } from './Context/themeContext';
-import { CartProvider }  from './Context/cartContext';
 
 import App from './App';
 
@@ -17,12 +16,10 @@ root.render(
     <React.StrictMode>
         <AuthProvider>
             <ThemeProvider>
-                <CartProvider>
-                    {/* parent component for the whole application */}
-                    <App />
-                    {/* toastcontainer for showing popups like logged in and logout */}
-                    <ToastContainer />
-                </CartProvider>
+                {/* parent component for the whole application */}
+                <App />
+                {/* toastcontainer for showing popups like logged in and logout */}
+                <ToastContainer />
             </ThemeProvider>
         </AuthProvider>
     </React.StrictMode>

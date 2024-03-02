@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useThemeContext } from '../Context/themeContext';
+import { toast } from 'react-toastify';
 
 
 const Header = () => {
@@ -51,10 +52,10 @@ const Header = () => {
             <a href="/"><h1 className="text-4xl font-semibold">UrbanKicks</h1></a>
 
             <div className='flex items-center space-x-4'>
-                <div className='cursor-pointer'>
+                <div className='cursor-pointer mx-8'>
                     <a href="/products/category/men">Men</a>
                 </div>
-                <div className='cursor-pointer'>
+                <div className='cursor-pointer mx-8'>
                     <a href="/products/category/women">Women</a>
                 </div>
             </div>

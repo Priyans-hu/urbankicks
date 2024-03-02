@@ -8,6 +8,7 @@ require("./config/dbConnection");
 const productRoute = require("./routes/productsRoutes");
 const usersRoute = require("./routes/usersRoutes");
 const ordersRoute = require("./routes/ordersRoutes");
+const cartRoute = require("./routes/cartRoutes");
 
 const port = 8080;
 
@@ -41,6 +42,7 @@ app.use("/products", (req, res, next) => {
 app.use("/products", productRoute);
 app.use("/orders", ordersRoute);
 app.use("/users", usersRoute);
+app.use("/cart", cartRoute);
 
 // Start the Express application
 app.listen(port, () => {

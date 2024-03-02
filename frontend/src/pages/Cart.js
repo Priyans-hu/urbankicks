@@ -1,53 +1,82 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { useCart } from '../hooks/useCart';
+import cartApi from '../api/cartApi';
+import { Tooltip } from 'react-tooltip';
 
 const Cart = () => {
-    const { cartItems, removeFromCart, clearCart, addToCart, calculateTotal } = useCart();
+    const [cartItems, setCartItems] = useState([]);
 
-    const handleRemoveItem = (itemId) => {
-        removeFromCart(itemId);
-    };
+    const userId = localStorage.getItem('userId');
 
-    const handleBuyNow = () => {
-        const totalAmount = calculateTotal();
-        const numberOfProducts = cartItems.length;
-        const productIds = cartItems.map((item) => item.id);
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            try {
+                const response = await cartApi.getCartByUserId(userId);
+                setCartItems(response.data.items);
+            } catch (error) {
+                console.error('Error fetching cart items:', error);
+            }
+        };
 
-        // Display information or navigate to a new page with the relevant data
-        alert(`Buy Now!\nTotal Amount: ₹${totalAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}\nNumber of Products: ${numberOfProducts}\nProduct IDs: ${productIds.join(', ')}`);
-    };
+        fetchCartItems();
+    }, [userId]);
 
-    const handleQuantityChange = (itemId, newQuantity) => {
-        // Update the quantity of the item in the cart
-        addToCart({ id: itemId, quantity: newQuantity });
-    };
-
-    const incrementQuantity = (itemId) => {
-        handleQuantityChange(itemId, cartItems.find((item) => item._id === itemId).quantity + 1);
-    };
-
-    const decrementQuantity = (itemId) => {
-        const currentQuantity = cartItems.find((item) => item._id === itemId).quantity;
-        if (currentQuantity > 1) {
-            handleQuantityChange(itemId, currentQuantity - 1);
+    const handleRemoveItem = async (itemId) => {
+        try {
+            await cartApi.removeItemFromCart(userId, itemId);
+            setCartItems(prevCartItems => prevCartItems.filter(item => item._id !== itemId));
+        } catch (error) {
+            console.error('Error removing item from cart:', error);
         }
     };
 
-    useEffect(() => {
-        // Perform any side effect when cartItems change
-        // For example, you can update the document title
-        document.title = `Shopping Cart (${cartItems.length} items)`;
-    }, [cartItems]);
+    const handleBuyNow = async () => {
+        // Implement buy now functionality
+        // For example, navigate to a checkout page with the cart items
+    };
+
+    const handleQuantityChange = async (itemId, newQuantity) => {
+        try {
+            await cartApi.updateItemQuantity(userId, itemId, newQuantity);
+            setCartItems(cartItems.map(item => item._id === itemId ? { ...item, quantity: newQuantity } : item));
+        } catch (error) {
+            console.error('Error updating cart item quantity:', error);
+        }
+    };
+
+    const incrementQuantity = async (itemId) => {
+        const item = cartItems.find((item) => item._id === itemId);
+        const newQuantity = item.quantity + 1;
+        await handleQuantityChange(itemId, newQuantity);
+    };
+
+    const decrementQuantity = async (itemId) => {
+        const item = cartItems.find((item) => item._id === itemId);
+        const newQuantity = item.quantity > 1 ? item.quantity - 1 : item.quantity;
+        await handleQuantityChange(itemId, newQuantity);
+    };
+
+    const calculateTotal = () => {
+        return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    };
+
+    const clearCart = async () => {
+        try {
+            await cartApi.clearCart(userId);
+            setCartItems([]);
+        } catch (error) {
+            console.error('Error clearing cart:', error);
+        }
+    };
+
+    const primary = "text-primary"
 
     return (
         <div>
             <Header />
             <div className="container mx-auto my-8 min-h-[75vh]">
                 <h1 className="text-4xl font-bold mb-4 text-center">Shopping Cart</h1>
-
-                {/* if cart length is zero then the cart is empty */}
                 {cartItems.length === 0 ? (
                     <div className='w-full flex items-center min-h-[65vh] justify-center'>
                         <div className='flex flex-col items-center'>
@@ -57,25 +86,26 @@ const Cart = () => {
                     </div>
                 ) : (
                     <div className='max-w-[70%] m-auto'>
-                        {/* Cart items */}
                         <div>
                             {cartItems.map((item) => (
-                                <div key={item._id} className="flex items-center justify-between border-b p-4">
+                                <div key={item._id} className={`flex items-center ${primary} justify-between border-b p-4`}>
                                     <div className="flex items-center">
-                                        <img src={item.productImg} alt={item.name} className="w-20 h-20 object-cover rounded-full mr-4" />
+                                        <a href={`/product/${item.product.id}`}>
+                                            <img src={item.product.img} alt={item.product.name} className="w-20 h-20 object-cover rounded-full mr-4" />
+                                        </a>
                                         <div>
-                                            <p className="font-bold">{item.name}</p>
+                                            <a href={`/product/${item.product.id}`}><p className="font-bold">{item.product.name}</p></a>
                                             <div className="flex items-center mt-2">
                                                 <button
                                                     onClick={() => decrementQuantity(item._id)}
-                                                    className="border rounded-full p-2 bg-red-500 text-white font-bold mr-3"
+                                                    className="border rounded-full p-2 py-1 bg-red-500 text-white font-bold mr-3"
                                                 >
                                                     -
                                                 </button>
                                                 <span>{item.quantity}</span>
                                                 <button
                                                     onClick={() => incrementQuantity(item._id)}
-                                                    className="border rounded-full p-2 bg-green-500 text-white font-bold ml-3"
+                                                    className="border rounded-full p-2 py-1 bg-green-500 text-white font-bold ml-3"
                                                 >
                                                     +
                                                 </button>
@@ -84,18 +114,20 @@ const Cart = () => {
                                     </div>
                                     <div className="flex items-center">
                                         <p>₹{(item.price * item.quantity).toLocaleString('en-IN', { maximumFractionDigits: 2 })}</p>
+                                        <Tooltip id="remove-tooltip" effect="solid" place="top">
+                                            Remove Item
+                                        </Tooltip>
                                         <button
-                                            onClick={() => handleRemoveItem(item._id)}
+                                            onClick={() => handleRemoveItem(item.product.id)}
                                             className="ml-4 text-red-500 focus:outline-none"
+                                            data-tip data-for="remove-tooltip"
                                         >
-                                            <i className="fas fa-times"></i>
+                                            <i className="fa-solid fa-trash-can"></i>
                                         </button>
                                     </div>
                                 </div>
                             ))}
                         </div>
-
-                        {/* Total */}
                         <div className="my-4 flex flex-row-reverse">
                             <button
                                 onClick={handleBuyNow}

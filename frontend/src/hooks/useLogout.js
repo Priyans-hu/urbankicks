@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import userApi from '../api/userApi';
 import { useAuth } from '../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 const useLogout = () => {
     const { logout } = useAuth();
@@ -17,6 +18,7 @@ const useLogout = () => {
 
             // Clear user state on successful logout
             logout();
+            toast.info('Logout successful!', { position: 'top-center' });
 
             // Reset error state
             setError(null);

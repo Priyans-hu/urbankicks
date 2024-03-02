@@ -18,7 +18,6 @@ class UserApi {
 
     async loginUser(credentials) {
         const res = await this.userApi.post('/login', credentials);
-        console.log(res.data);
         localStorage.setItem('userEmail', res.data.user.email);
         return res.data;
     }
@@ -34,7 +33,6 @@ class UserApi {
             const res = await this.userApi.get(`/details?email=${email}`);
             return res.data;
         } catch (error) {
-            // console.error('Error fetching user details:', error);
             throw error;
         }
     }
