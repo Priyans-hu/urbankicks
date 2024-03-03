@@ -99,19 +99,23 @@ const Cart = () => {
                                         <div>
                                             <a href={`/product/${item.product.id}`}><p className="font-bold">{item.product.name}</p></a>
                                             <div className="flex items-center mt-2">
-                                                <button
-                                                    onClick={() => decrementQuantity(item._id)}
-                                                    className="border rounded-full p-2 py-1 bg-red-500 text-white font-bold mr-3"
-                                                >
-                                                    -
-                                                </button>
+                                                <Tooltip title='Decrease quantity'>
+                                                    <button
+                                                        onClick={() => decrementQuantity(item._id)}
+                                                        className="border rounded-full p-2 py-1 bg-red-500 text-white font-bold mr-3"
+                                                    >
+                                                        -
+                                                    </button>
+                                                </Tooltip>
                                                 <span>{item.quantity}</span>
-                                                <button
-                                                    onClick={() => incrementQuantity(item._id)}
-                                                    className="border rounded-full p-2 py-1 bg-green-500 text-white font-bold ml-3"
-                                                >
-                                                    +
-                                                </button>
+                                                <Tooltip title='Increase quantity'>
+                                                    <button
+                                                        onClick={() => incrementQuantity(item._id)}
+                                                        className="border rounded-full p-2 py-1 bg-green-500 text-white font-bold ml-3"
+                                                    >
+                                                        +
+                                                    </button>
+                                                </Tooltip>
                                             </div>
                                         </div>
                                     </div>
@@ -141,7 +145,7 @@ const Cart = () => {
                                 onClick={clearCart}
                                 className="mx-4 bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-600 focus:outline-none"
                             >
-                                Clear
+                                Clear Cart
                             </button>
                         </div>
                     </div>

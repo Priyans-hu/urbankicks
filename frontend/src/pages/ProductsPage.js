@@ -33,7 +33,9 @@ const ProductsPage = () => {
                     <div className="flex flex-wrap justify-around m-auto my-16 w-[75%]">
                         {/* splice and reverse are used to display the last added product first */}
                         {products.slice().reverse().map((product) => (
-                            <Card key={product._id} item={product} />
+                            <div className='myProductCard border border-white hover:border-gray-200'>
+                                <Card key={product._id} item={product} />
+                            </div>
                         ))}
                     </div>
                 )}

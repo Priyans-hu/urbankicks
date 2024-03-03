@@ -1,7 +1,10 @@
 // App.js
 import React from 'react';
-import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+import './App.css';
+import './css/ProductCard.css'
+
 import HomePage from './pages/HomePage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import LoginPage from './pages/LoginPage';

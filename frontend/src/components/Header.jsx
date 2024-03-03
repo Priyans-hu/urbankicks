@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useThemeContext } from '../Context/themeContext';
+import Tooltip from '@mui/material/Tooltip';
 
 const Header = () => {
     const { state } = useAuth();
@@ -59,22 +60,34 @@ const Header = () => {
             </div>
 
             <div className='flex items-center space-x-4'>
-                <button
-                    className='cursor-pointer bg-gray-300 p-2 rounded-full'
-                    onClick={toggleTheme}
-                >
-                    {isDarkTheme ? '☀️' : '🌙'}
-                </button>
-                <a href="/cart">
-                    <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
-                        <span role="img" aria-label="Cart">🛒</span>
-                    </div>
-                </a>
-                <a href="/myaccount">
-                    <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
-                        <span role="img" aria-label="myAccount">👤</span>
-                    </div>
-                </a>
+                <div>
+                    <Tooltip title='Switch Theme'>
+                        <button
+                            className='cursor-pointer bg-gray-300 p-2 rounded-full'
+                            onClick={toggleTheme}
+                        >
+                            {isDarkTheme ? '☀️' : '🌙'}
+                        </button>
+                    </Tooltip>
+                </div>
+                <div>
+                    <Tooltip title='Visit Cart'>
+                        <a href="/cart">
+                            <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
+                                <span role="img" aria-label="Cart">🛒</span>
+                            </div>
+                        </a>
+                    </Tooltip>
+                </div>
+                <div>
+                    <Tooltip title='Check Account'>
+                        <a href="/myaccount">
+                            <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
+                                <span role="img" aria-label="myAccount">👤</span>
+                            </div>
+                        </a>
+                    </Tooltip>
+                </div>
 
                 {/* Conditionally render Login/Logout button */}
                 {renderAuthButton()}
