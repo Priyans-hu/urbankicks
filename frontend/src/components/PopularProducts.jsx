@@ -4,7 +4,6 @@ import Card from './Card';
 
 const PopularProducts = () => {
     const [products, setProducts] = useState([]);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -13,7 +12,6 @@ const PopularProducts = () => {
                 setProducts(response.data);
             } catch (error) {
                 console.error('Error fetching products:', error);
-                setError('Error fetching products. Please try again later.');
             }
         };
 

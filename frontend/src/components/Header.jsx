@@ -2,8 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useThemeContext } from '../Context/themeContext';
-import { toast } from 'react-toastify';
-
 
 const Header = () => {
     const { state } = useAuth();
@@ -11,9 +9,9 @@ const Header = () => {
     const { user, logout } = useAuth();
     const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const handleLogout = () => {
-        setShowConfirmation(true);
-    };
+    // const handleLogout = () => {
+    //     setShowConfirmation(true);
+    // };
 
     const confirmLogout = () => {
         logout();

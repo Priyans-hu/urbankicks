@@ -7,7 +7,7 @@ const AddProductForm = () => {
         name: '',
         description: '',
         price: '',
-        imgLink: '',
+        productImg: '',
         quantity: '',
         color: '',
         size: '',
@@ -38,7 +38,7 @@ const AddProductForm = () => {
                 name: '',
                 description: '',
                 price: '',
-                imgLink: '',
+                productImg: '',
                 quantity: '',
                 color: '',
                 size: '',
@@ -55,23 +55,23 @@ const AddProductForm = () => {
             <form onSubmit={handleSubmit} className="space-y-4 w-1/2 m-auto">
                 <div>
                     <label htmlFor="name" className="block">Product Name:</label>
-                    <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" />
+                    <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" required/>
                 </div>
                 <div>
                     <label htmlFor="description" className="block">Description:</label>
-                    <textarea id="description" name="description" value={formData.description} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+                    <textarea id="description" name="description" value={formData.description} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" required></textarea>
                 </div>
                 <div>
                     <label htmlFor="price" className="block">Price:</label>
-                    <input type="number" id="price" name="price" value={formData.price} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" />
+                    <input type="number" id="price" name="price" value={formData.price} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" required/>
                 </div>
                 <div>
-                    <label htmlFor="imgLink" className="block">Image Link:</label>
-                    <input type="text" id="imgLink" name="imgLink" value={formData.imgLink} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" />
+                    <label htmlFor="productImg" className="block">Image Link:</label>
+                    <input type="text" id="productImg" name="productImg" value={formData.productImg} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" />
                 </div>
                 <div>
                     <label htmlFor="quantity" className="block">Quantity:</label>
-                    <input type="number" id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" />
+                    <input type="number" id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" required/>
                 </div>
                 <div>
                     <label htmlFor="color" className="block">Color:</label>

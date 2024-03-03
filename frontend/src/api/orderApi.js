@@ -33,4 +33,5 @@ class OrderApi {
     }
 }
 
-export default new OrderApi();
+const OrderApiInstance = new OrderApi();
+export default OrderApiInstance;

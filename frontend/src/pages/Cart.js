@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import cartApi from '../api/cartApi';
-import { Tooltip } from 'react-tooltip';
+
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Cart = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -114,16 +117,14 @@ const Cart = () => {
                                     </div>
                                     <div className="flex items-center">
                                         <p>₹{(item.price * item.quantity).toLocaleString('en-IN', { maximumFractionDigits: 2 })}</p>
-                                        <Tooltip id="remove-tooltip" effect="solid" place="top">
-                                            Remove Item
+                                        <Tooltip title="Delete Item">
+                                            <IconButton
+                                                onClick={() => handleRemoveItem(item.product.id)}
+                                                className="ml-4 text-red-500 focus:outline-none"
+                                            >
+                                                <DeleteIcon style={{ color: 'red' }} />
+                                            </IconButton>
                                         </Tooltip>
-                                        <button
-                                            onClick={() => handleRemoveItem(item.product.id)}
-                                            className="ml-4 text-red-500 focus:outline-none"
-                                            data-tip data-for="remove-tooltip"
-                                        >
-                                            <i className="fa-solid fa-trash-can"></i>
-                                        </button>
                                     </div>
                                 </div>
                             ))}
@@ -134,7 +135,7 @@ const Cart = () => {
                                 className="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-600 focus:outline-none"
                             >
                                 Checkout
-                                <p className="font-bold inline">: ₹{calculateTotal().toLocaleString('en-IN', { maximumFractionDigits: 2 })}</p>
+                                <p className="font-bold inline">: ₹ {calculateTotal().toLocaleString('en-IN', { maximumFractionDigits: 2 })}</p>
                             </button>
                             <button
                                 onClick={clearCart}
