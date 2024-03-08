@@ -7,6 +7,7 @@ import orderApi from '../api/orderApi';
 import { toast } from 'react-toastify';
 import cartApi from '../api/cartApi';
 import userApi from '../api/userApi';
+import PopularProducts from '../components/PopularProducts';
 
 const ProductDetailPage = () => {
     const { productId } = useParams();
@@ -75,11 +76,11 @@ const ProductDetailPage = () => {
             <Header />
             <div className="container mx-auto mt-8 min-h-[75vh]">
                 {productDetails ? (
-                    <div className="flex">
-                        <div className="w-1/2">
+                    <div className="flex flex-col lg:flex-row">
+                        <div className="m-auto mb-8 lg:mb-0 w-11/12 lg:w-1/2">
                             <img src={productDetails.productImg} alt={productDetails.name} className="h-[90%]" />
                         </div>
-                        <div className="w-1/2 pl-8 flex flex-col justify-center">
+                        <div className="w-11/12 lg:w-1/2 pl-8 flex flex-col justify-center">
                             <h1 className="text-3xl font-bold mb-4">{productDetails.name}</h1>
                             <p className="text-gray-600 mb-4">{productDetails.description}</p>
                             <p className="text-2xl font-bold text-orange-500">₹{productDetails.price}</p>
@@ -102,12 +103,10 @@ const ProductDetailPage = () => {
                                 </select>
                             </div> */}
                             <div className='butBtn mt-4'>
-                                {/* buy now button */}
                                 <button className='bg-black rounded-2xl px-6 py-2 text-white'
                                     onClick={() => { buyNowHandler(productId, productDetails) }}>
                                     Buy Now
                                 </button>
-                                {/* add to cart button */}
                                 <button
                                     className='bg-black rounded-2xl px-6 py-2 text-white mx-4'
                                     onClick={() => addCartHandler(productDetails)}>
@@ -122,6 +121,7 @@ const ProductDetailPage = () => {
                     </div>
                 )}
             </div>
+            <PopularProducts heading={'Suggested Products'}/>
             <Footer />
         </div>
     );

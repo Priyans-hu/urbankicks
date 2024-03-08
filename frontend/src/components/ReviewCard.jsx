@@ -46,7 +46,8 @@ const ReviewCard = ({ review }) => {
             </div>
             <div className="mt-2 text-sm flex flex-col items-center text-gray-500">
                 <div className='text-center'>
-                    <p>Name: {userInfo ? userInfo.email.split('@')[0] : 'Loading...'}</p>
+                    {/* <p>Name: {userInfo ? userInfo.email.split('@')[0] : 'Loading...'}</p> */}
+                    <p className='text-black text-lg'>{userInfo ? userInfo.email.split('@')[0] : 'Anonymous'}</p>
                     <p>{createdAt}</p>
                 </div>
             </div>

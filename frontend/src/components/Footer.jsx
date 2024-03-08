@@ -3,12 +3,12 @@ import React from 'react';
 const Footer = () => {
     return (
         <footer className="text-black py-4 pt-8 border-t">
-            <div className="container mx-auto flex justify-between items-center">
-                <div>
+            <div className="container mx-auto lg:flex justify-between items-center text-center lg:text-left">
+                <div className='mb-8 lg:mb-0'>
                     <h2 className="text-xl font-bold">UrbanKicks</h2>
                     <p className="text-sm">Providing quality since 2024</p>
                 </div>
-                <div className='flex justify-between w-2/3'>
+                <div className='flex justify-evenly lg:justify-between lg:w-2/3'>
                     <div>
                         <h3 className="text-lg font-bold mb-2">Quick Links</h3>
                         <ul className='text-gray-600'>

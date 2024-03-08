@@ -1,4 +1,5 @@
 const { Order } = require('../models/ordersModel');
+const mongoose = require('mongoose');
 
 const getAllOrders = async (req, res) => {
     try {
@@ -23,14 +24,11 @@ const getUserOrders = async (req, res) => {
     }
 };
 
-
 const createOrder = async (req, res) => {
     const newOrder = req.body;
 
     try {
-        const userId = req.user._id;
-        newOrder.user_id = userId;
-
+        newOrder.user_id = req.userId;
         const orderDetails = new Order(newOrder);
         const savedOrder = await orderDetails.save();
 
