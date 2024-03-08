@@ -26,17 +26,33 @@ const ProductDetailPage = () => {
         fetchProductDetails();
     }, [productId]);
 
-    const buyNowHandler = (productId, product) => {
-        orderApi.createOrder(productId, product);
-        toast.success(`${product.name} Order placed successfully`, {
-            position: 'bottom-right',
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-        });
+    const buyNowHandler = async (productId, product) => {
+        try {
+            const orderData = {
+                userId: localStorage.getItem('userId'),
+                products: [{ product_id: productId, quantity: 1 }],
+                total_amount: product.price
+            };
+            const response = await orderApi.createOrder(orderData);
+            if (response.status === 201) {
+                toast.success(`${product.name} Order placed successfully`, {
+                    position: 'bottom-right',
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                });
+            } else {
+                console.error('Failed to create order:', response.data);
+                toast.error('Failed to place order. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error placing order:', error);
+            toast.error('An error occurred. Please try again.', { position: 'bottom-right' });
+        }
     }
+    
 
     const addCartHandler = async (product) => {
         try {
