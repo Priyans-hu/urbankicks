@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProductApi from '../api/productApi';
 import orderApi from '../api/orderApi';
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 import cartApi from '../api/cartApi';
 import userApi from '../api/userApi';
 
@@ -40,14 +40,14 @@ const ProductDetailPage = () => {
     const addCartHandler = async (product) => {
         try {
             const userEmail = localStorage.getItem('userEmail');
-            const userResponse = await userApi.getUserDetails({userEmail});
+            const userResponse = await userApi.getUserDetails({ userEmail });
             const userId = userResponse.id;
             localStorage.setItem('userId', userId);
-            
+
             if (!userId) {
                 throw new Error('User not logged in');
             }
-    
+
             await cartApi.addItemToCart(userId, productId, 1, product.price);
             toast.success(`${product.name} added to cart`, {
                 position: 'bottom-right',
@@ -68,7 +68,7 @@ const ProductDetailPage = () => {
                 draggable: true,
             });
         }
-    };    
+    };
 
     return (
         <div>
@@ -83,10 +83,28 @@ const ProductDetailPage = () => {
                             <h1 className="text-3xl font-bold mb-4">{productDetails.name}</h1>
                             <p className="text-gray-600 mb-4">{productDetails.description}</p>
                             <p className="text-2xl font-bold text-orange-500">₹{productDetails.price}</p>
+                            {productDetails.quantity < 4 ? (
+                                <p className="text-red-500">Hurry Up! Only few left in stock.</p>)
+                                : (
+                                    <p></p>
+                                )}
+                            {/* <div>
+                                <label htmlFor="size" className="block text-sm font-medium text-gray-700">Size</label>
+                                <select
+                                    name="size"
+                                    id="size"
+                                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                                >
+                                    <option value=""></option>
+                                    {productDetails.size.map((sizeOption, index) => (
+                                        <option key={index} value={sizeOption}>{sizeOption}</option>
+                                    ))}
+                                </select>
+                            </div> */}
                             <div className='butBtn mt-4'>
                                 {/* buy now button */}
                                 <button className='bg-black rounded-2xl px-6 py-2 text-white'
-                                    onClick={() => {buyNowHandler(productId, productDetails)}}>
+                                    onClick={() => { buyNowHandler(productId, productDetails) }}>
                                     Buy Now
                                 </button>
                                 {/* add to cart button */}

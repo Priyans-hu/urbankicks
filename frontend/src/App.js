@@ -19,6 +19,7 @@ import NotFound from './pages/NotFound';
 import UserAccount from './pages/UserAccount';
 import AdminPage from './pages/AdminPage';
 import AddProduct from './pages/AddProduct';
+import AddReviewPage from './pages/AddReviewPage';
 
 function App() {
 	return (
@@ -31,6 +32,7 @@ function App() {
 				<Route path="/products/category/:type" element={<CategoryPage />} />
 				<Route path="/product/:productId" element={<ProductDetailPage />} />
 				<Route path="/contact" element={<Contact />} />
+				<Route path="/review/createNew" element={<AddReviewPage />} />
 				
 				{/* Admin Control routes */}
 				<Route path="/admin/dashboard" element={<AdminPage />} />

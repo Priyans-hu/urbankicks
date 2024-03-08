@@ -18,15 +18,18 @@ const PopularProducts = () => {
         fetchData();
     }, []);
 
-    // displaying the only top 4 products out of total
-    const PopularProducts = products.slice(0,4);
+    // displaying only 4 random products out of total
+    const shuffledProducts = products.slice().sort(() => Math.random() - 0.5);
+    const randomProducts = shuffledProducts.slice(0, 4);
 
     return (
         <div className='m-8 mt-16'>
             <h1 className='text-5xl ml-8'>Popular Products</h1>
             <div className="flex justify-around m-auto my-8 flex-wrap w-[90%] lg:w-[85%]">
-                {PopularProducts.map((product) => (
-                    <Card key={product._id} item={product} />
+                {randomProducts.map((product) => (
+                    <div className='myProductCard border border-white hover:border-gray-200' key={product._id}>
+                        <Card item={product} />
+                    </div>
                 ))}
             </div>
         </div>

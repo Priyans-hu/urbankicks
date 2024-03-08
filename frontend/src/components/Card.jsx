@@ -15,7 +15,7 @@ const Card = ({ item }) => {
                 <img
                     src={productImg}
                     alt={name}
-                    className="w-full h-full object-cover rounded-full"
+                    className="w-full h-full object-cover rounded-full bg-blend-overlay"
                 />
                 <div className="myProductCardDetails absolute -top-8 left-0 font-bold text-black text-lg text-ellipsis ">{name}</div>
                 <div className="myProductCardDetails absolute -bottom-4 right-0 text-orange-500 mt-4 font-bold text-2xl">₹{price}</div>
