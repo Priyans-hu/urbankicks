@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 
 const ProductsPage = () => {
     const [products, setProducts] = useState([]);
+    const [sortedProducts, setSortedProducts] = useState([]);
     const [error, setError] = useState(null);
     const [sortOption, setSortOption] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
@@ -40,8 +41,8 @@ const ProductsPage = () => {
             sortedProducts = sortedProducts.sort(() => Math.random() - 0.5);
         }
 
-        setProducts(sortedProducts);
-    }, [sortOption, products.length]);
+        setSortedProducts(sortedProducts);
+    }, [sortOption, products]);
 
     useEffect(() => {
         if (!searchQuery) {
@@ -87,7 +88,7 @@ const ProductsPage = () => {
                     <p className="text-red-500 text-center mt-4">{error}</p>
                 ) : (
                     <div className="flex flex-wrap justify-around m-auto my-16 w-[92%]">
-                        {(searchQuery ? filteredProducts : products).map((product) => (
+                        {(searchQuery ? filteredProducts : sortedProducts).map((product) => (
                             <div className='myProductCard border border-white hover:border-gray-200 m-2' key={product._id}>
                                 <Card item={product} />
                             </div>

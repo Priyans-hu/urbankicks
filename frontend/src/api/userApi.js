@@ -36,6 +36,15 @@ class UserApi {
             throw error;
         }
     }
+    
+    async getUserDetailsFromId(userId) {
+        try {
+            const res = await this.userApi.get(`/details/id?userId=${userId}`);
+            return res.data;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 const UserApiInstacnce = new UserApi();

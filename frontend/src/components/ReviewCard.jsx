@@ -9,7 +9,7 @@ const ReviewCard = ({ review }) => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const user = await UserApiInstance.getUserDetails(review.userId);
+                const user = await UserApiInstance.getUserDetailsFromId(review.userId);
                 setUserInfo(user);
             } catch (error) {
                 console.error('Error fetching user data:', error);
