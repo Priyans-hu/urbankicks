@@ -20,7 +20,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-const allowedOrigins = ['http://localhost:8080', 'http://localhost:3000', 'https://urbankicks.onrender.com/', 'https://urbankicksatserver.onrender.com'];
+const allowedOrigins = ['http://localhost:8080', 
+                        'http://localhost:3000', 
+                        'https://urbankicks.onrender.com', 
+                        'https://urbankicksatserver.onrender.com', 
+                        'https://urbankicks.netlify.com'
+                    ];
 
 const corsOptions = {
     origin: (origin, callback) => {
