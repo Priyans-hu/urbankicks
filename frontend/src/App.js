@@ -20,6 +20,7 @@ import UserAccount from './pages/UserAccount';
 import AdminPage from './pages/AdminPage';
 import AddProduct from './pages/AddProduct';
 import AddReviewPage from './pages/AddReviewPage';
+import ManageOrders from './pages/ManageOrders';
 
 function App() {
 	return (
@@ -34,9 +35,10 @@ function App() {
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/review/createNew" element={<AddReviewPage />} />
 				
-				{/* Admin Control routes */}
-				<Route path="/admin/dashboard" element={<AdminPage />} />
-				<Route path="/admin/dashboard/newProduct" element={<AddProduct />} />
+				{/* Authenticated Admin Control routes */}
+				<Route path="/admin/dashboard" element={<AuthMiddleware element={<AdminPage />} />} />
+				<Route path="/admin/dashboard/newProduct" element={<AuthMiddleware element={<AddProduct />} />} />
+				<Route path="/admin/dashboard/manageOrders" element={<AuthMiddleware element={<ManageOrders />} />} />
 
 				{/* Use AuthMiddleware for protected routes */}
 				<Route path="/order-history" element={<AuthMiddleware element={<OrderHistoryPage />} />} />
