@@ -10,15 +10,15 @@ const Card = ({ item }) => {
     };
 
     return (
-        <div className="relative w-56 h-56 md:m-12 my-16">
-            <div className='bg-gray-300 w-56 h-56 rounded-full'>
+        <div className="relative w-36 md:w-56 h-44 md:h-56 p-4 md:m-12 my-16">
+            <div className='md:bg-gray-300 w-36 md:w-56 h-56 rounded-full'>
                 <img
                     src={productImg}
                     alt={name}
-                    className="w-full h-full object-cover rounded-full bg-blend-overlay"
+                    className="w-auto md:w-full h-auto md:h-full object-cover rounded-full bg-blend-overlay"
                 />
                 <div className="myProductCardDetails absolute -top-8 left-0 font-bold text-black text-lg text-ellipsis ">{name}</div>
-                <div className="myProductCardDetails absolute -bottom-4 right-0 text-orange-500 mt-4 font-bold text-2xl">₹{price}</div>
+                <div className="myProductCardDetails absolute -bottom-4 right-0 text-orange-500 mt-4 font-bold text-xl md:text-2xl">₹{price}</div>
                 <div
                     className="absolute inset-0 cursor-pointer"
                     onClick={handleClick}

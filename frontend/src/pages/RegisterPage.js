@@ -31,11 +31,11 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="flex flex-row h-screen">
-            <div className='w-1/2 lg:h-screen'>
-                <a href="/"><h1 className="text-4xl font-semibold m-4">UrbanKicks</h1></a>
+        <div className="flex flex-col-reverse md:flex-row h-screen">
+            <div className='md:w-1/2 lg:h-screen'>
+            <a href="/"><h1 className="fixed md:relative top-0 left-4 text-4xl font-semibold m-4">UrbanKicks</h1></a>
 
-                <div className="flex-1 p-8 bg-white h-[85vh] flex flex-col justify-center items-center txetle">
+                <div className="flex-1 md:p-8 bg-white md:h-[85vh] flex flex-col justify-center items-center">
                     <div>
                         <h2 className="text-5xl font-semibold m-4 mb-0">Get started!</h2>
                         <p className='m-4 mt-1 text-center'>Let's Shop together</p>

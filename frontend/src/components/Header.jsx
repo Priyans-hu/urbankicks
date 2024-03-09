@@ -48,19 +48,19 @@ const Header = () => {
 
     return (
         <header className="bg-white text-black p-4 px-8 flex items-center justify-between border-b">
-            <a href="/"><h1 className="text-4xl font-semibold">UrbanKicks</h1></a>
+            <a href="/"><h1 className="text-2xl md:text-4xl font-semibold">UrbanKicks</h1></a>
 
-            <div className='flex items-center space-x-4'>
-                <div className='cursor-pointer mx-8'>
+            <div className='hidden md:flex items-center space-x-4'>
+                <div className='cursor-pointer'>
                     <a href="/products/category/men">Men</a>
                 </div>
-                <div className='cursor-pointer mx-8'>
+                <div className='cursor-pointer'>
                     <a href="/products/category/women">Women</a>
                 </div>
             </div>
 
             <div className='flex items-center space-x-4'>
-                <div>
+                <div className='hidden md:block'>
                     <Tooltip title='Switch Theme'>
                         <button
                             className='cursor-pointer bg-gray-300 p-2 rounded-full'

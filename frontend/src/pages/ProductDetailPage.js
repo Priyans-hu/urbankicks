@@ -94,7 +94,7 @@ const ProductDetailPage = () => {
                 {productDetails ? (
                     <div className="flex flex-col lg:flex-row">
                         <div className="m-auto mb-8 lg:mb-0 w-11/12 lg:w-1/2">
-                            <img src={productDetails.productImg} alt={productDetails.name} className="h-[90%]" />
+                            <img src={productDetails.productImg} alt={productDetails.name} className="h-[50%] md:h-[90%]" />
                         </div>
                         <div className="w-11/12 lg:w-1/2 pl-8 flex flex-col justify-center">
                             <h1 className="text-3xl font-bold mb-4">{productDetails.name}</h1>

@@ -6,12 +6,12 @@ const Contact = () => {
     return (
         <div>
             <Header />
-            <div className="flex flex-row h-screen">
-                <div className='w-1/2 text-left lg:h-screen'>
-                    <div className="flex-1 p-8 bg-white h-[85vh] flex flex-col justify-center items-center text-center">
-                        <h1 className="text-4xl font-bold mb-8">Contact Us</h1>
+            <div className="flex flex-col-reverse md:flex-row h-screen">
+                <div className='md:w-1/2 text-left lg:h-screen'>
+                    <div className="flex-1 p-8 bg-white md:h-[85vh] flex flex-col justify-center items-center text-center">
+                        <h1 className="top-0 left-4 text-4xl font-semibold m-4">Contact Us</h1>
 
-                        <div className="w-[70%]">
+                        <div className="w-[90%] md:w-[70%]">
                             <form>
                                 <div className="mb-4">
                                     <input

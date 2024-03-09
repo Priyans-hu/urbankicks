@@ -25,7 +25,7 @@ const PopularProducts = ( { heading } ) => {
     return (
         <div className='m-8 mt-16'>
             <h1 className='text-5xl ml-8'>{heading ? heading : 'Popular Products'}</h1>
-            <div className="flex justify-around m-auto my-8 flex-wrap w-[90%] lg:w-[85%]">
+            <div className="flex justify-around m-auto my-8 flex-wrap w-[95%] lg:w-[85%]">
                 {randomProducts.map((product) => (
                     <div className='myProductCard border border-white hover:border-gray-200' key={product._id}>
                         <Card item={product} />

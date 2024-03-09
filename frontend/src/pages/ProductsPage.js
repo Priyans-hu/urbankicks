@@ -87,14 +87,14 @@ const ProductsPage = () => {
                 {error ? (
                     <p className="text-red-500 text-center mt-4">{error}</p>
                 ) : (
-                    <div className="flex flex-wrap justify-around m-auto my-16 w-[92%]">
+                    <div className="flex flex-wrap justify-around m-auto my-16 w-full md:w-[92%]">
                         {(searchQuery ? filteredProducts : sortedProducts).map((product) => (
                             <div className='myProductCard border border-white hover:border-gray-200 m-2' key={product._id}>
                                 <Card item={product} />
                             </div>
                         ))}
                     </div>
-                )}ṭ
+                )}
             </div>
             <Footer />
         </div>
