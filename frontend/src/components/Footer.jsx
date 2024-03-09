@@ -8,7 +8,7 @@ const Footer = () => {
                     <h2 className="text-xl font-bold">UrbanKicks</h2>
                     <p className="text-sm">Providing quality since 2024</p>
                 </div>
-                <div className='flex justify-evenly lg:justify-between lg:w-2/3'>
+                <div className='grid grid-cols-2 gap-8 md:flex justify-evenly lg:justify-between lg:w-2/3'>
                     <div>
                         <h3 className="text-lg font-bold mb-2">Quick Links</h3>
                         <ul className='text-gray-600'>

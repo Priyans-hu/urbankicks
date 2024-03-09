@@ -56,10 +56,9 @@ const getOrderById = async (req, res) => {
 
 const updateOrderStatus = async (req, res) => {
     const orderId = req.params.id;
-    const { order_status } = req.body;
-
+    const { status } = req.body;
     try {
-        const updatedOrder = await Order.findByIdAndUpdate(orderId, { order_status }, { new: true });
+        const updatedOrder = await Order.findByIdAndUpdate(orderId, { order_status: status }, { new: true });
         if (!updatedOrder) {
             return res.status(404).json({ message: 'Order not found' });
         }
@@ -70,11 +69,12 @@ const updateOrderStatus = async (req, res) => {
     }
 };
 
+
 const deleteOrder = async (req, res) => {
     const orderId = req.params.id;
 
     try {
-        const deletedOrder = await Order.findByIdAndRemove(orderId);
+        const deletedOrder = await Order.findByIdAndDelete(orderId);
         if (!deletedOrder) {
             return res.status(404).json({ message: 'Order not found' });
         }
