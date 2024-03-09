@@ -94,7 +94,7 @@ const ProductsPage = () => {
                             </div>
                         ))}
                     </div>
-                )}
+                )}ṭ
             </div>
             <Footer />
         </div>

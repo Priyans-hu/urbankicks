@@ -85,14 +85,14 @@ const logoutUser = async (req, res) => {
 const getUserDetails = async (req, res) => {
     try {
         const { email } = req.query;
-
+    
         // Fetch user details based on the user email
         const userDetails = await Users.findOne({ email });
-
+    
         if (!userDetails) {
             return res.status(404).json({ error: 'User not found' });
         }
-
+    
         res.json({
             id: userDetails._id,
             name: userDetails.username,
@@ -104,11 +104,30 @@ const getUserDetails = async (req, res) => {
     }
 };
 
-
+const getUserDetailsFromId = async (req, res) => {
+    try {
+        const { userId } = req.query; 
+        const userDetails = await Users.findById(userId);
+    
+        if (!userDetails) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+    
+        res.json({
+            id: userDetails._id,
+            name: userDetails.username,
+            email: userDetails.email,
+        });
+    } catch (error) {
+        console.error('Error fetching user details:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 
 module.exports = {
     registerUser,
     loginUser,
     logoutUser,
     getUserDetails,
+    getUserDetailsFromId
 };
