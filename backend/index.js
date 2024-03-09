@@ -24,7 +24,7 @@ const allowedOrigins = ['http://localhost:8080',
                         'http://localhost:3000', 
                         'https://urbankicks.onrender.com', 
                         'https://urbankicksatserver.onrender.com', 
-                        'https://urbankicks.netlify.com'
+                        'https://urbankicks.netlify.app'
                     ];
 
 const corsOptions = {
