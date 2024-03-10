@@ -70,7 +70,7 @@ const ProductsPage = () => {
             <div className='m-8'>
                 <h1 className='text-5xl ml-8 font-bold text-center'>Our Products</h1>
                 <div className="m-auto lg:-mt-8 w-[92%]">
-                    <div className='flex justify-end items-center mx-8 mb-4'>
+                    <div className='flex flex-col md:flex-row justify-end items-center md:mx-8 my-4 lg:mb-4'>
                         <div className='flex items-center mx-4'>
                             <label htmlFor='sort'>Sort by:</label>
                             <select id='sort' value={sortOption} onChange={handleSortChange} className='ml-2 p-1 border border-gray-300 rounded'>
@@ -81,7 +81,7 @@ const ProductsPage = () => {
                                 <option value='z-a'>Alphabetically: Z-A</option>
                             </select>
                         </div>
-                        <input type='text' placeholder='Search by name' value={searchQuery} onChange={handleSearchChange} className='p-1 outline-gray-400 border border-gray-300 rounded' />
+                        <input type='text' placeholder='Search by name' className='w-[75%] md:w-auto p-1 outline-gray-400 border border-gray-300 rounded' value={searchQuery} onChange={handleSearchChange} />
                     </div>
                 </div>
                 {error ? (

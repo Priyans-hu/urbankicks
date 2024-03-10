@@ -10,8 +10,8 @@ const Card = ({ item }) => {
     };
 
     return (
-        <div className="relative w-36 md:w-56 h-44 md:h-56 p-4 md:m-12 my-16">
-            <div className='md:bg-gray-300 w-36 md:w-56 h-56 rounded-full'>
+        <div className="relative w-36 md:w-48 lg:w-56 h-44 md:h-48 lg:h-56 sm:p-4 md:m-12 my-16">
+            <div className='md:bg-gray-300 w-36 md:w-48 lg:w-56 h-56 rounded-full'>
                 <img
                     src={productImg}
                     alt={name}

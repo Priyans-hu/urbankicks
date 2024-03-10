@@ -72,13 +72,13 @@ const Cart = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className='max-w-[70%] m-auto'>
+                    <div className='w-full sm:max-w-[70%] m-auto'>
                         <div>
                             {cartItems.map((item) => (
                                 <CartItemCard item={item} userId={userId} setCartItems={setCartItems} cartItems={cartItems}/>
                             ))}
                         </div>
-                        <div className="my-4 flex flex-row-reverse">
+                        <div className="w-[90%] m-auto sm:w-full my-4 flex flex-row-reverse">
                             <button
                                 onClick={placeOrder}
                                 className="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-600 focus:outline-none"

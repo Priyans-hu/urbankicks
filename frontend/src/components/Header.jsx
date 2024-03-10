@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useThemeContext } from '../Context/themeContext';
 import Tooltip from '@mui/material/Tooltip';
 
-const Header = () => {
+const Header = ( { toShow = true } ) => {
     const { state } = useAuth();
     const { isDarkTheme, toggleTheme } = useThemeContext();
     const { user, logout } = useAuth();
@@ -30,7 +30,8 @@ const Header = () => {
             return (
                 <a href="/">
                     <div className='cursor-pointer bg-gray-300 p-2 rounded-full' onClick={logout}>
-                        <span role="img" aria-label="Logout">👋 Logout</span>
+                        <span className='hidden sm:inline'>👋 </span>
+                        <span role="img" aria-label="Logout">Logout</span>
                     </div>
                 </a>
             );
@@ -39,7 +40,8 @@ const Header = () => {
             return (
                 <a href="/login">
                     <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
-                        <span role="img" aria-label="Login">👤 Login</span>
+                        <span className=''>👤 </span>
+                        <span role="img" aria-label="Login">Login</span>
                     </div>
                 </a>
             );
@@ -60,7 +62,7 @@ const Header = () => {
             </div>
 
             <div className='flex items-center space-x-4'>
-                <div className='hidden md:block'>
+                <div className='hidden sm:block'>
                     <Tooltip title='Switch Theme'>
                         <button
                             className='cursor-pointer bg-gray-300 p-2 rounded-full'
@@ -90,7 +92,7 @@ const Header = () => {
                 </div>
 
                 {/* Conditionally render Login/Logout button */}
-                {renderAuthButton()}
+                {!toShow ? null: renderAuthButton()}
 
                 {/* Confirmation dialog */}
                 {showConfirmation && (
