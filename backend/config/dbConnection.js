@@ -1,17 +1,16 @@
 const mongoose = require("mongoose");
-const config = require("./config.json");
+require("dotenv").config();
 
 mongoose
-    .connect(config.dbPath)
+    .connect(process.env.DB_PATH)
     .then(
         (res) => {
-            console.log("Connection to database was succesful");
+            console.log("Connection to database was successful");
         },
         (err) => {
-            console.error("oops! failed to connect with database");
+            console.error("Oops! Failed to connect with database");
         }
     )
     .catch((err) => {
-        console.error("oops! failed to connect with database");
-    }
-);
+        console.error("Oops! Failed to connect with database");
+    });

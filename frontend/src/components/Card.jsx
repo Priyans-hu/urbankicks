@@ -18,7 +18,7 @@ const Card = ({ item }) => {
                     className="w-auto md:w-full h-auto md:h-full object-cover rounded-full bg-blend-overlay"
                 />
                 <div className="myProductCardDetails absolute -top-8 left-0 font-bold text-black text-lg text-ellipsis ">{name}</div>
-                <div className="myProductCardDetails absolute -bottom-4 right-0 text-orange-500 mt-4 font-bold text-xl md:text-2xl">₹{price}</div>
+                <div className="myProductCardDetails absolute -bottom-4 md:-bottom-8 right-0 md:-right-6 text-orange-500 mt-4 font-bold text-xl md:text-2xl">₹{price}</div>
                 <div
                     className="absolute inset-0 cursor-pointer"
                     onClick={handleClick}
