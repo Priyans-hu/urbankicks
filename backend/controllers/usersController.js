@@ -55,7 +55,7 @@ const loginUser = async (req, res) => {
         const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '24h' });
 
         // Send the token as a cookie
-        res.cookie('jwt', token, { httpOnly: true, secure: true });
+        res.cookie('jwt', token, { httpOnly: false, secure: true });
 
         // You can also send the token in the response if needed
         // res.status(200).json({ message: 'Login successful', token });
