@@ -40,7 +40,7 @@ const Header = ( { toShow = true } ) => {
             return (
                 <a href="/login">
                     <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
-                        <span className=''>👤 </span>
+                        <span className='hidden sm:inline'>👤 </span>
                         <span role="img" aria-label="Login">Login</span>
                     </div>
                 </a>

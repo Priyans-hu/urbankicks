@@ -81,7 +81,7 @@ const ProductsPage = () => {
                                 <option value='z-a'>Alphabetically: Z-A</option>
                             </select>
                         </div>
-                        <input type='text' placeholder='Search by name' className='w-[75%] md:w-auto p-1 outline-gray-400 border border-gray-300 rounded' value={searchQuery} onChange={handleSearchChange} />
+                        <input type='text' placeholder='Search by name' className='w-[75%] md:w-auto p-1 my-4 md:my-auto outline-gray-400 border border-gray-300 rounded' value={searchQuery} onChange={handleSearchChange} />
                     </div>
                 </div>
                 {error ? (
