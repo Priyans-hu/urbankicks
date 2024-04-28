@@ -17,6 +17,7 @@ const ProductsPage = () => {
             try {
                 const response = await ProductApi.getAllProducts();
                 setProducts(response.data);
+                console.log(products)
             } catch (error) {
                 console.error('Error fetching products:', error);
                 setError('Error fetching products. Please try again later.');
