@@ -59,6 +59,9 @@ const Header = ( { toShow = true } ) => {
                 <div className='cursor-pointer'>
                     <a href="/products/category/women">Women</a>
                 </div>
+                <div className='cursor-pointer'>
+                    <a href="/products/category/kids">Kids</a>
+                </div>
             </div>
 
             <div className='flex items-center space-x-4'>
