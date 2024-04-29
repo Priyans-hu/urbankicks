@@ -12,7 +12,7 @@ const ProductSchema = new mongoose.Schema({
     },
     price: { type: Number, required: true },
     categories: [{ type: String }],
-});
+}, { collection: 'Products' });
 
 const Product = mongoose.model('Product', ProductSchema);
 
