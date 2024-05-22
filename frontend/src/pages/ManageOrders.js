@@ -76,7 +76,7 @@ const ManageOrders = () => {
                                         <select
                                             className="appearance-none w-full bg-white border border-gray-200 hover:border-gray-500 px-4 py-2 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline"
                                             onChange={(e) => handleUpdateOrderStatus(order._id, e.target.value)}
-                                            value={order.status}
+                                            value={order.order_status}
                                         >
                                             <option value='' disabled>Choose Updated status</option>
                                             <option value='Processing'>Processing</option>
