@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-// import uselogin hook
 import useLogin from '../hooks/useLogin';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-// import toastify notifications
-// import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+// Validation schema
+const schema = yup.object().shape({
+    email: yup.string().email('Invalid email format').required('Email is required'),
+    password: yup.string().min(5, 'Password must be at least 5 characters').required('Password is required'),
+});
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -14,20 +19,19 @@ const LoginPage = () => {
 
     const { handleLogin, error, loading } = useLogin();
 
+    // Initialize react-hook-form
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+    });
+
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-
+    const onSubmit = async (data) => {
         try {
-            const res = await handleLogin({ email, password });
+            const res = await handleLogin(data);
             console.log(res);
-            // If handleLogin doesn't throw an error, consider it successful
             navigate('/');
         } catch (error) {
             console.error(error);
@@ -39,16 +43,21 @@ const LoginPage = () => {
             <Header toShow={false}/>
             <div className="flex flex-col-reverse md:flex-row h-screen">
                 <div className='mb-8 sm:m-auto md:w-1/2 text-left lg:h-screen'>
-                    {/* <a href="/"><h1 className="fixed md:relative top-0 left-4 text-4xl font-semibold m-4">UrbanKicks</h1></a> */}
-
                     <div className="flex-1 md:p-8 bg-white md:h-[85vh] flex flex-col justify-center items-center text-center">
                         <div>
                             <h2 className="text-5xl font-semibold m-4 mb-0">Welcome back!</h2>
                             <p className='m-4 mt-1'>Continue Shopping</p>
                         </div>
-                        <form className='flex flex-col w-2/3 xl:w-1/2' onSubmit={handleSubmit}>
+                        <form className='flex flex-col w-2/3 xl:w-1/2' onSubmit={handleSubmit(onSubmit)}>
                             <div className="mb-4">
-                                <input type="text" id="email" name="email" className="mt-1 p-2 w-full border border-gray-700 rounded-full py-3 px-6" placeholder='Email' />
+                                <input 
+                                    type="text" 
+                                    id="email" 
+                                    {...register('email')} 
+                                    className={`mt-1 p-2 w-full border border-gray-700 rounded-full py-3 px-6 ${errors.email ? 'border-red-500' : ''}`} 
+                                    placeholder='Email' 
+                                />
+                                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="password" className="sr-only">
@@ -58,8 +67,8 @@ const LoginPage = () => {
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         id="password"
-                                        name="password"
-                                        className="mt-1 p-2 w-full border rounded-full py-3 px-6 border-gray-800"
+                                        {...register('password')}
+                                        className={`mt-1 p-2 w-full border rounded-full py-3 px-6 ${errors.password ? 'border-red-500' : 'border-gray-800'}`}
                                         placeholder='Password'
                                     />
                                     <button
@@ -70,6 +79,7 @@ const LoginPage = () => {
                                         {showPassword ? <i className="fas fa-eye-slash"></i> : <i className="fas fa-eye"></i>}
                                     </button>
                                 </div>
+                                {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
                             </div>
                             <button
                                 type="submit"
