@@ -4,8 +4,10 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ReviewApiInstance from '../api/reviewApi';
+import { useAuth } from '../hooks/useAuth';
 
 const UserReviews = () => {
+    const { state } = useAuth();
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
@@ -48,14 +50,15 @@ const UserReviews = () => {
         ]
     };
 
-
     return (
         <div className="m-8 mt-16">
             <div className='flex justify-between container'>
                 <h2 className="text-4xl sm:text-5xl ml-8">User Reviews</h2>
-                <a href='/review/createNew'>
-                    <button className='p-2 sm:py-4 sm:px-8 bg-green-500 rounded-lg'>Write Review</button>
-                </a>
+                {state.isAuthenticated && (
+                    <a href='/review/createNew'>
+                        <button className='p-2 sm:py-4 sm:px-8 bg-green-500 rounded-lg'>Write Review</button>
+                    </a>
+                )}
             </div>
             <Slider {...settings} className='w-4/5 m-auto my-16'>
                 {reviews.map(review => (

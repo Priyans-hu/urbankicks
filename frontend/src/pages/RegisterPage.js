@@ -12,7 +12,7 @@ import * as yup from 'yup';
 
 // Validation schemas
 const stepOneSchema = yup.object().shape({
-    email: yup.string().email('Invalid email format').required('Email is required'),
+    email: yup.string().matches(/^(?!-)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Invalid email format').required('Email is required'),
     password: yup.string().min(5, 'Password must be at least 5 characters').required('Password is required'),
 });
 
@@ -57,7 +57,7 @@ const MultiStepRegister = () => {
     return (
         <div>
             <Header toShow={false} />
-            <div className="flex flex-col-reverse md:flex-row h-screen">
+            <div className="flex flex-col-reverse md:flex-row min-h-screen">
                 <div className='mb-8 sm:m-auto md:w-1/2 lg:h-screen'>
                     <div className="flex-1 md:p-8 bg-white md:h-[85vh] flex flex-col justify-center items-center">
                         <div>

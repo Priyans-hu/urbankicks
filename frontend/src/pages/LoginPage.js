@@ -9,7 +9,7 @@ import * as yup from 'yup';
 
 // Validation schema
 const schema = yup.object().shape({
-    email: yup.string().email('Invalid email format').required('Email is required'),
+    email: yup.string().matches(/^(?!-)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Invalid email format').required('Email is required'),
     password: yup.string().min(5, 'Password must be at least 5 characters').required('Password is required'),
 });
 
