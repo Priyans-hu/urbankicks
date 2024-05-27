@@ -45,7 +45,16 @@ class UserApi {
             throw error;
         }
     }
+
+    async updateUser(userId, updateData) {
+        try {
+            const res = await this.userApi.put(`/update/${userId}`, updateData);
+            return res.data;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
-const UserApiInstacnce = new UserApi();
-export default UserApiInstacnce;
+const UserApiInstance = new UserApi();
+export default UserApiInstance;

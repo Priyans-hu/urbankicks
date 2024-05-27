@@ -1,33 +1,47 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import useRegister from '../hooks/useRegister'; // Import the useRegister hook
+import useRegister from '../hooks/useRegister';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
+import StepOne from '../components/Registration/StepOne';
+import StepTwo from '../components/Registration/StepTwo';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-// Validation schema
-const schema = yup.object().shape({
+// Validation schemas
+const stepOneSchema = yup.object().shape({
     email: yup.string().email('Invalid email format').required('Email is required'),
     password: yup.string().min(5, 'Password must be at least 5 characters').required('Password is required'),
 });
 
-const RegisterPage = () => {
-    const [showPassword, setShowPassword] = useState(false);
-    const navigate = useNavigate(); // React Router's navigate function
+const stepTwoSchema = yup.object().shape({
+    phone_number: yup.string().required('Phone number is required'),
+    street: yup.string().required('Street is required'),
+    city: yup.string().required('City is required'),
+    state: yup.string().required('State is required'),
+    postal_code: yup.string().required('Postal code is required'),
+    country: yup.string().required('Country is required'),
+});
 
-    // Initialize the useRegister hook
+const schemas = [stepOneSchema, stepTwoSchema];
+
+const MultiStepRegister = () => {
+    const [step, setStep] = useState(1);
+    const navigate = useNavigate();
     const { handleRegister, error, loading } = useRegister();
 
-    // Initialize react-hook-form
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema),
+    const methods = useForm({
+        resolver: yupResolver(schemas[step - 1]),
     });
 
-    const handleTogglePassword = () => {
-        setShowPassword(!showPassword);
+    const handleNext = (data) => {
+        setStep(step + 1);
+    };
+
+    const handleBack = () => {
+        setStep(step - 1);
     };
 
     const onSubmit = async (data) => {
@@ -36,67 +50,41 @@ const RegisterPage = () => {
             toast.success('Account created successfully!', { position: 'top-center' });
             navigate('/');
         } catch (error) {
-            // Handle registration error
             toast.error(`Error: ${error.message || 'Registration failed'}`, { position: 'top-center' });
         }
     };
 
     return (
         <div>
-            <Header toShow={false}/>
+            <Header toShow={false} />
             <div className="flex flex-col-reverse md:flex-row h-screen">
                 <div className='mb-8 sm:m-auto md:w-1/2 lg:h-screen'>
-
                     <div className="flex-1 md:p-8 bg-white md:h-[85vh] flex flex-col justify-center items-center">
                         <div>
                             <h2 className="text-5xl font-semibold m-4 mb-0">Get started!</h2>
                             <p className='m-4 mt-1 text-center'>Let's Shop together</p>
                         </div>
-                        <form className='flex flex-col w-2/3 xl:w-1/2' onSubmit={handleSubmit(onSubmit)}>
-                            <div className="mb-4">
-                                <input 
-                                    type="text" 
-                                    id="email" 
-                                    {...register('email')} 
-                                    className={`mt-1 p-2 w-full border border-gray-700 rounded-full py-3 px-6 ${errors.email ? 'border-red-500' : ''}`} 
-                                    placeholder='Email' 
-                                />
-                                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
-                            </div>
-                            <div className="mb-4">
-                                <div className="relative">
-                                    <input
-                                        type={showPassword ? "text" : "password"}
-                                        id="password"
-                                        {...register('password')}
-                                        className={`mt-1 p-2 w-full border rounded-full py-3 px-6 ${errors.password ? 'border-red-500' : 'border-gray-800'}`}
-                                        placeholder='Password'
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={handleTogglePassword}
-                                        className="absolute inset-y-0 right-0 mx-5 flex justify-center items-center text-gray-500 cursor-pointer"
-                                    >
-                                        {showPassword ? <i className="fas fa-eye-slash"></i> : <i className="fas fa-eye"></i>}
+                        <FormProvider {...methods}>
+                            <form className='flex flex-col w-2/3 xl:w-1/2' onSubmit={methods.handleSubmit(step === 2 ? onSubmit : handleNext)}>
+                                {step === 1 && <StepOne />}
+                                {step === 2 && <StepTwo />}
+                                <div className="flex justify-between mt-4">
+                                    {step > 1 && (
+                                        <button type="button" onClick={handleBack} className="bg-gray-500 text-white py-3 px-6 rounded-full focus:outline-none focus:ring">
+                                            Back
+                                        </button>
+                                    )}
+                                    <button type="submit" className="bg-black  w-1/3 text-white py-3 px-6 rounded-full focus:outline-none focus:ring" disabled={loading}>
+                                        {loading ? 'Processing...' : step === 2 ? 'Register' : 'Next'}
                                     </button>
                                 </div>
-                                {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
-                            </div>
-                            <button
-                                type="submit"
-                                className="bg-black text-white py-3 px-6 rounded-full focus:outline-none focus:ring focus:border-gray-600 w-full"
-                                disabled={loading}
-                            >
-                                {loading ? 'Registering...' : 'Register'}
-                            </button>
-                        </form>
-
+                            </form>
+                        </FormProvider>
                         {error && (
                             <p className="text-red-500 mt-2">
                                 Error: {error}
                             </p>
                         )}
-
                         <p className="mt-4 text-sm">Already have an account! <a href="/login" className="text-blue-500">Login</a></p>
                     </div>
                 </div>
@@ -117,4 +105,4 @@ const RegisterPage = () => {
     );
 };
 
-export default RegisterPage;
+export default MultiStepRegister;

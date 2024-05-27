@@ -1,4 +1,3 @@
-// UserAccount.js
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -9,18 +8,16 @@ const UserAccount = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [userOrders, setUserOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [editMode, setEditMode] = useState(false);
+    const [editedUserInfo, setEditedUserInfo] = useState(null);
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                // getting the user email from localStorage
                 const userEmail = localStorage.getItem('userEmail');
-
-                // Fetch user details using the user email
                 const userResponse = await userApi.getUserDetails({ userEmail });
                 setUserInfo(userResponse);
-
-                // Fetch user orders using the user email
+                setEditedUserInfo(userResponse);
                 const ordersResponse = await OrderApi.getUserOrders(userResponse.id);
                 setUserOrders(ordersResponse.data);
             } catch (error) {
@@ -33,6 +30,32 @@ const UserAccount = () => {
         fetchUserData();
     }, []);
 
+    const handleEdit = () => {
+        setEditMode(true);
+    };
+
+    const handleSave = async () => {
+        try {
+            await userApi.updateUser(userInfo.id, editedUserInfo);
+            setUserInfo(editedUserInfo);
+            setEditMode(false);
+        } catch (error) {
+            console.error('Error updating user details:', error);
+        }
+    };
+
+    const handleCancel = () => {
+        setEditMode(false);
+        setEditedUserInfo(userInfo);
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEditedUserInfo((prevUserInfo) => ({
+            ...prevUserInfo,
+            [name]: value,
+        }));
+    };
 
     return (
         <div>
@@ -45,8 +68,57 @@ const UserAccount = () => {
                 {!loading && userInfo && (
                     <div className='my-8'>
                         <h2 className="text-2xl font-semibold mb-4">User Details</h2>
-                        <p className='text-lg'>Name: {userInfo.email.split('@')[0]}</p>
-                        <p className='text-lg'>Email: {userInfo.email}</p>
+                        {editMode ? (
+                            <div className="flex justify-center">
+                                <div className="w-full max-w-md">
+                                    <div className="flex flex-wrap -mx-3 mb-6">
+                                        <div className="w-full px-3 mb-6">
+                                            <label htmlFor="username" className='block text-lg mb-1'>Username:</label>
+                                            <input type="text" id="username" name="username" value={editedUserInfo.username} onChange={handleChange} className='border border-gray-300 rounded px-2 py-1 w-full' />
+                                        </div>
+                                        <div className="w-full px-3 mb-6">
+                                            <label htmlFor="phone_number" className='block text-lg mb-1'>Phone Number:</label>
+                                            <input type="text" id="phone_number" name="phone_number" value={editedUserInfo.phone_number} onChange={handleChange} className='border border-gray-300 rounded px-2 py-1 w-full' />
+                                        </div>
+                                        <div className="w-full px-3 mb-6">
+                                            <label htmlFor="street" className='block text-lg mb-1'>Street:</label>
+                                            <input type="text" id="street" name="street" value={editedUserInfo.address.street} onChange={(e) => handleChange({ target: { name: 'address', value: { ...editedUserInfo.address, street: e.target.value } } })} className='border border-gray-300 rounded px-2 py-1 w-full' />
+                                        </div>
+                                        <div className="w-full px-3 mb-6">
+                                            <label htmlFor="city" className='block text-lg mb-1'>City:</label>
+                                            <input type="text" id="city" name="city" value={editedUserInfo.address.city} onChange={(e) => handleChange({ target: { name: 'address', value: { ...editedUserInfo.address, city: e.target.value } } })} className='border border-gray-300 rounded px-2 py-1 w-full' />
+                                        </div>
+                                        <div className="w-full px-3 mb-6">
+                                            <label htmlFor="state" className='block text-lg mb-1'>State:</label>
+                                            <input type="text" id="state" name="state" value={editedUserInfo.address.state} onChange={(e) => handleChange({ target: { name: 'address', value: { ...editedUserInfo.address, state: e.target.value } } })} className='border border-gray-300 rounded px-2 py-1 w-full' />
+                                        </div>
+                                        <div className="w-full px-3 mb-6">
+                                            <label htmlFor="postal_code" className='block text-lg mb-1'>Postal Code:</label>
+                                            <input type="text" id="postal_code" name="postal_code" value={editedUserInfo.address.postal_code} onChange={(e) => handleChange({ target: { name: 'address', value: { ...editedUserInfo.address, postal_code: e.target.value } } })} className='border border-gray-300 rounded px-2 py-1 w-full' />
+                                        </div>
+                                        <div className="w-full px-3 mb-6">
+                                            <label htmlFor="country" className='block text-lg mb-1'>Country:</label>
+                                            <input type="text" id="country" name="country" value={editedUserInfo.address.country} onChange={(e) => handleChange({ target: { name: 'address', value: { ...editedUserInfo.address, country: e.target.value } } })} className='border border-gray-300 rounded px-2 py-1 w-full' />
+                                        </div>
+                                        <div className="w-full px-3 mb-6 flex justify-end">
+                                            <button onClick={handleCancel} className='bg-gray-500 w-1/4 mx-4 hover:bg-gray-700 text-white font-bold py-2 px-8 rounded'>Cancel</button>
+                                            <button onClick={handleSave} className='bg-blue-500 w-2/4 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded'>Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
+                                <p className='text-lg'><span className='font-semibold'>Username:</span> {userInfo.username || 'N/A'}</p>
+                                <p className='text-lg'><span className='font-semibold'>Email:</span> {userInfo.email}</p>
+                                <p className='text-lg'><span className='font-semibold'>Phone Number:</span> {userInfo.phone_number}</p>
+                                <div className='mt-4'>
+                                    <h3 className="text-xl font-semibold">Address:</h3>
+                                    <p className='text-lg'>{userInfo.address.street}, {userInfo.address.city}, {userInfo.address.state}, {userInfo.address.postal_code}, {userInfo.address.country}</p>
+                                </div>
+                                <button onClick={handleEdit} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4'>Edit</button>
+                            </div>
+                        )}
                     </div>
                 )}
 

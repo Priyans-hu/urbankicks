@@ -3,7 +3,17 @@ const jwt = require('jsonwebtoken');
 const { Users } = require('../models/usersModel');
 
 const registerUser = async (req, res) => {
-    const { username, email, password } = req.body;
+    const {
+        username,
+        email,
+        password,
+        phone_number,
+        street,
+        city,
+        state,
+        postal_code,
+        country,
+    } = req.body;
 
     try {
         // Check if the user already exists
@@ -16,8 +26,21 @@ const registerUser = async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create a new user with the hashed password
-        const newUser = new Users({ username, email, password: hashedPassword });
+        // Create a new user with the hashed password and additional details
+        const newUser = new Users({
+            username,
+            email,
+            password: hashedPassword,
+            phone_number,
+            address: {
+                street,
+                city,
+                state,
+                postal_code,
+                country,
+            },
+        });
+
         const savedUser = await newUser.save();
 
         // Generate a JWT token
@@ -97,6 +120,8 @@ const getUserDetails = async (req, res) => {
             id: userDetails._id,
             name: userDetails.username,
             email: userDetails.email,
+            phone_number: userDetails.phone_number,
+            address: userDetails.address,
         });
     } catch (error) {
         console.error('Error fetching user details:', error);
@@ -124,10 +149,44 @@ const getUserDetailsFromId = async (req, res) => {
     }
 }
 
+const updateUser = async (req, res) => {
+    const { userId } = req.params;
+    const { password, address } = req.body;
+
+    try {
+        const user = await Users.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            user.password = hashedPassword;
+        }
+
+        if (address) {
+            user.address.street = address.street || user.address.street;
+            user.address.city = address.city || user.address.city;
+            user.address.state = address.state || user.address.state;
+            user.address.postal_code = address.postal_code || user.address.postal_code;
+            user.address.country = address.country || user.address.country;
+        }
+
+        user.updated_at = Date.now(); 
+        const updatedUser = await user.save();
+
+        res.status(200).json({ message: 'User updated successfully', user: updatedUser });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
     logoutUser,
     getUserDetails,
-    getUserDetailsFromId
+    getUserDetailsFromId,
+    updateUser
 };
