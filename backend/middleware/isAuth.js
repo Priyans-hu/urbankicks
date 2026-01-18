@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+const jwtSecret = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+
 const isAuth = (req, res, next) => {
     // Check if the JWT cookie exists
     const token = req.cookies.jwt;
@@ -10,7 +12,7 @@ const isAuth = (req, res, next) => {
 
     try {
         // Verify the token
-        const decoded = jwt.verify(token, 'your-secret-key');
+        const decoded = jwt.verify(token, jwtSecret);
         
         // Attach the user ID to the request object
         req.userId = decoded.userId;
