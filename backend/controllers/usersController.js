@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Users } = require('../models/usersModel');
 
+const jwtSecret = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+
 const registerUser = async (req, res) => {
     const {
         username,
@@ -44,7 +46,7 @@ const registerUser = async (req, res) => {
         const savedUser = await newUser.save();
 
         // Generate a JWT token
-        const token = jwt.sign({ userId: savedUser._id }, 'your-secret-key', { expiresIn: '2h' });
+        const token = jwt.sign({ userId: savedUser._id }, jwtSecret, { expiresIn: '2h' });
 
         // Send the token as a cookie
         res.cookie('jwt', token, { httpOnly: true });
@@ -75,7 +77,7 @@ const loginUser = async (req, res) => {
         }
 
         // Generate a JWT token
-        const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '24h' });
+        const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '24h' });
 
         // Send the token as a cookie
         res.cookie('jwt', token, { httpOnly: false, secure: true });

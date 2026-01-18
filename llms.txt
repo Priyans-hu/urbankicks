@@ -1,0 +1,51 @@
+# UrbanKicks
+
+> Full-stack MERN e-commerce application for shoe shopping
+
+## What is this?
+UrbanKicks is an online shoe store built with the MERN stack that allows users to:
+- Browse and search shoe collections
+- Create accounts and authenticate
+- Add items to shopping cart
+- Place and track orders
+- Write product reviews
+
+## Tech Stack
+- Frontend: React 18, Material-UI, TailwindCSS
+- Backend: Node.js, Express.js
+- Database: MongoDB with Mongoose
+- Authentication: JWT with bcrypt
+
+## Features
+- User registration and authentication
+- Product catalog with categories
+- Shopping cart functionality
+- Order placement and history
+- Product reviews and ratings
+- Responsive design
+
+## Project Structure
+- `/backend` - Express.js API server
+- `/frontend` - React application (CRA)
+
+## API Endpoints
+- `/users` - Authentication and user management
+- `/products` - Product CRUD operations
+- `/cart` - Shopping cart management
+- `/orders` - Order processing
+- `/reviews` - Product reviews
+
+## Development
+```bash
+# Backend
+cd backend && npm install && npm start
+
+# Frontend
+cd frontend && npm install && npm start
+```
+
+## Repository
+https://github.com/Priyans-hu/urbankicks
+
+## License
+MIT
