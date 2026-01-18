@@ -17,7 +17,7 @@ const Card = ({ item }) => {
             <div className='md:bg-gray-300 w-36 md:w-48 lg:w-56 h-56 rounded-full'>
                 <img
                     src={productImg}
-                    alt={`${name} product image`}
+                    alt={name}
                     className="w-auto md:w-full h-auto md:h-full object-cover rounded-full bg-blend-overlay"
                     loading="lazy"
                 />
