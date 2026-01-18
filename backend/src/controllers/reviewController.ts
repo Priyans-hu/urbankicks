@@ -27,10 +27,14 @@ export const getAllReviews = async (req: Request, res: Response): Promise<void> 
     ]);
     res.json({
       success: true,
-      ...createPaginatedResponse(reviews, total, page, limit)
+      data: reviews,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit)
     });
   } catch (error) {
-        res.status(500).json({
+    res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });

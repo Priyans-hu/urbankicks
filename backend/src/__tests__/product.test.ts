@@ -19,7 +19,7 @@ describe('Product Controller', () => {
       const response = await request(app).get('/products');
       expect(response.status).toBe(200);
       expect(response.body.success).toBe(true);
-      expect(response.body.items).toEqual([]);
+      expect(response.body.data).toEqual([]);
       expect(response.body.total).toBe(0);
     });
 
