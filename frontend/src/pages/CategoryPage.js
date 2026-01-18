@@ -16,7 +16,6 @@ const CategoryPage = () => {
                 const response = await ProductApi.getProductsByCategory(type);
                 setCategoryProducts(response.data);
             } catch (error) {
-                console.error('Error fetching category products:', error);
                 setError('Oops!! Error fetching category products. Please try again later.');
             }
         };

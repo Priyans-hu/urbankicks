@@ -14,7 +14,7 @@ const ManageOrders = () => {
                 const response = await OrderApiInstance.getAllOrders();
                 setOrders(response.data);
             } catch (error) {
-                console.error('Error fetching orders:', error);
+                toast.error('Failed to fetch orders', {position: 'bottom-right'});
             }
         };
 
@@ -31,7 +31,6 @@ const ManageOrders = () => {
             );
             toast.success('Order status updated successfully', {position: 'bottom-right'});
         } catch (error) {
-            console.error('Error updating order status:', error);
             toast.error('Failed to update order status', {position: 'bottom-right'});
         }
     };
@@ -44,7 +43,6 @@ const ManageOrders = () => {
             );
             toast.success('Order deleted successfully', {position: 'bottom-right'});
         } catch (error) {
-            console.error('Error deleting order:', error);
             toast.error('Failed to delete order', {position: 'bottom-right'});
         }
     };

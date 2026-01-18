@@ -1,16 +1,20 @@
 import { Request, Response } from 'express';
 import { Product } from '../models';
+import { getPaginationParams, createPaginatedResponse } from '../utils/pagination';
 
-export const getAllProducts = async (_req: Request, res: Response): Promise<void> => {
+export const getAllProducts = async (req: Request, res: Response): Promise<void> => {
   try {
-    const products = await Product.find();
+    const { page, limit, skip } = getPaginationParams(req);
+    const [products, total] = await Promise.all([
+      Product.find().skip(skip).limit(limit),
+      Product.countDocuments()
+    ]);
     res.status(200).json({
       success: true,
-      data: products
+      ...createPaginatedResponse(products, total, page, limit)
     });
   } catch (error) {
-    console.error('getAllProducts:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -27,8 +31,7 @@ export const getProductsByCategory = async (req: Request, res: Response): Promis
       data: products
     });
   } catch (error) {
-    console.error('getProductsByCategory:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -44,8 +47,7 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
       data: savedProduct
     });
   } catch (error) {
-    console.error('createProduct:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -69,8 +71,7 @@ export const getProductById = async (req: Request, res: Response): Promise<void>
       data: product
     });
   } catch (error) {
-    console.error('getProductById:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -94,8 +95,7 @@ export const updateProduct = async (req: Request, res: Response): Promise<void> 
       data: product
     });
   } catch (error) {
-    console.error('updateProduct:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -116,8 +116,7 @@ export const deleteProduct = async (req: Request, res: Response): Promise<void> 
     }
     res.status(204).end();
   } catch (error) {
-    console.error('deleteProduct:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });

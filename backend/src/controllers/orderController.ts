@@ -1,17 +1,21 @@
 import { Request, Response } from 'express';
 import { Order, Product } from '../models';
 import { AuthRequest } from '../types';
+import { getPaginationParams, createPaginatedResponse } from '../utils/pagination';
 
-export const getAllOrders = async (_req: Request, res: Response): Promise<void> => {
+export const getAllOrders = async (req: Request, res: Response): Promise<void> => {
   try {
-    const orders = await Order.find().populate('products.product_id', 'name price');
+    const { page, limit, skip } = getPaginationParams(req);
+    const [orders, total] = await Promise.all([
+      Order.find().populate('products.product_id', 'name price').skip(skip).limit(limit),
+      Order.countDocuments()
+    ]);
     res.status(200).json({
       success: true,
-      data: orders
+      ...createPaginatedResponse(orders, total, page, limit)
     });
   } catch (error) {
-    console.error('getAllOrders:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -37,8 +41,7 @@ export const getUserOrders = async (req: AuthRequest, res: Response): Promise<vo
       data: userOrders
     });
   } catch (error) {
-    console.error('getUserOrders:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -93,8 +96,7 @@ export const createOrder = async (req: AuthRequest, res: Response): Promise<void
       data: savedOrder
     });
   } catch (error) {
-    console.error('createOrder:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -118,8 +120,7 @@ export const getOrderById = async (req: Request, res: Response): Promise<void> =
       data: order
     });
   } catch (error) {
-    console.error('getOrderById:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -148,8 +149,7 @@ export const updateOrderStatus = async (req: Request, res: Response): Promise<vo
       data: updatedOrder
     });
   } catch (error) {
-    console.error('updateOrderStatus:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -170,8 +170,7 @@ export const deleteOrder = async (req: Request, res: Response): Promise<void> =>
     }
     res.status(204).end();
   } catch (error) {
-    console.error('deleteOrder:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });

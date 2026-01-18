@@ -80,7 +80,6 @@ const AddProductForm = () => {
             });
             resetForm();
         } catch (error) {
-            console.error('Error creating product:', error);
             toast.error(`Error creating product: ${error.message}`, {
                 position: 'bottom-right',
                 autoClose: 2000,

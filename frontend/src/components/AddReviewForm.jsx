@@ -31,7 +31,7 @@ const AddReviewForm = () => {
                 draggable: true,
             });
         } catch (error) {
-            console.error('Error submitting review:', error);
+            toast.error('Error submitting review. Please try again.', {position: 'bottom-right'});
         }
     };
 

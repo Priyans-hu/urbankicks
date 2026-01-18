@@ -16,14 +16,14 @@ const AdminPage = () => {
             const response = await ProductApiInstance.getAllProducts();
             setProducts(response.data);
         } catch (error) {
-            console.error('Error fetching products:', error);
+            toast.error('Failed to fetch products', {position: 'bottom-right'});
         }
     };
 
     const handleDeleteProduct = async (productId) => {
         try {
             await ProductApiInstance.deleteProduct(productId);
-            toast.error(`Product deleted successfully`, {
+            toast.success(`Product deleted successfully`, {
                 position: 'bottom-right',
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -33,7 +33,6 @@ const AdminPage = () => {
             });
             fetchProducts();
         } catch (error) {
-            console.error('Error deleting product:', error);
             toast.warning(`Unable to delete product`, {
                 position: 'bottom-right',
                 autoClose: 2000,

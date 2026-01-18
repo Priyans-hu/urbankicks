@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Review } from '../models';
+import { getPaginationParams, createPaginatedResponse } from '../utils/pagination';
 
 export const createReview = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -10,24 +11,26 @@ export const createReview = async (req: Request, res: Response): Promise<void> =
       data: review
     });
   } catch (error) {
-    console.error('createReview:', error);
-    res.status(400).json({
+        res.status(400).json({
       success: false,
       message: error instanceof Error ? error.message : 'Bad request'
     });
   }
 };
 
-export const getAllReviews = async (_req: Request, res: Response): Promise<void> => {
+export const getAllReviews = async (req: Request, res: Response): Promise<void> => {
   try {
-    const reviews = await Review.find();
+    const { page, limit, skip } = getPaginationParams(req);
+    const [reviews, total] = await Promise.all([
+      Review.find().skip(skip).limit(limit),
+      Review.countDocuments()
+    ]);
     res.json({
       success: true,
-      data: reviews
+      ...createPaginatedResponse(reviews, total, page, limit)
     });
   } catch (error) {
-    console.error('getAllReviews:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -49,8 +52,7 @@ export const getReviewById = async (req: Request, res: Response): Promise<void> 
       data: review
     });
   } catch (error) {
-    console.error('getReviewById:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -66,8 +68,7 @@ export const getReviewsByProductId = async (req: Request, res: Response): Promis
       data: reviews
     });
   } catch (error) {
-    console.error('getReviewsByProductId:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -89,8 +90,7 @@ export const deleteReview = async (req: Request, res: Response): Promise<void> =
       message: 'Review deleted successfully'
     });
   } catch (error) {
-    console.error('deleteReview:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });

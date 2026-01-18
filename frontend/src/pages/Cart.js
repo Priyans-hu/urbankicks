@@ -18,7 +18,7 @@ const Cart = () => {
                 const response = await cartApi.getCartByUserId(userId);
                 setCartItems(response.data.items);
             } catch (error) {
-                console.error('Error fetching cart items:', error);
+                // Error handled silently - cart will show empty state
             }
         };
 
@@ -34,7 +34,7 @@ const Cart = () => {
             await cartApi.clearCart(userId);
             setCartItems([]);
         } catch (error) {
-            console.error('Error clearing cart:', error);
+            toast.error('Failed to clear cart. Please try again.', {position: 'bottom-right'});
         }
     };
 
@@ -50,11 +50,9 @@ const Cart = () => {
                 await clearCart();
                 toast.success('Order placed successfully!', {position: 'bottom-right'});
                 } else {
-                console.error('Failed to create order:', response.data);
                 toast.error('Failed to place order. Please try again.');
             }
         } catch (error) {
-            console.error('Error placing order:', error);
             toast.error('An error occurred. Please try again.', {position: 'bottom-right'});
         }
     };
