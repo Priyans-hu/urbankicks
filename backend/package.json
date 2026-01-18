@@ -6,7 +6,6 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
-    "start:legacy": "node --watch index.js",
     "dev": "ts-node src/app.ts",
     "dev:watch": "ts-node-dev --respawn src/app.ts",
     "lint": "eslint .",
@@ -35,6 +34,8 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^25.0.9",
+    "@typescript-eslint/eslint-plugin": "^8.53.0",
+    "@typescript-eslint/parser": "^8.53.0",
     "eslint": "^9.39.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"

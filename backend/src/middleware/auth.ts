@@ -22,7 +22,7 @@ export const isAuth = (req: AuthRequest, res: Response, next: NextFunction): voi
     const decoded = jwt.verify(token, config.jwtSecret) as JwtPayload;
     req.userId = decoded.userId;
     next();
-  } catch (error) {
+  } catch (_error) {
     res.status(401).json({
       success: false,
       message: 'Unauthorized - Invalid token'
