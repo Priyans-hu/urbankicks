@@ -19,7 +19,7 @@ describe('Product Controller', () => {
       const response = await request(app).get('/products');
       expect(response.status).toBe(200);
       expect(response.body.success).toBe(true);
-      expect(response.body.items).toEqual([]);
+      expect(response.body.data).toEqual([]);
       expect(response.body.total).toBe(0);
     });
 
@@ -33,7 +33,7 @@ describe('Product Controller', () => {
       const response = await request(app).get('/products?page=1&limit=10');
       expect(response.status).toBe(200);
       expect(response.body.success).toBe(true);
-      expect(response.body.items.length).toBe(2);
+      expect(response.body.data.length).toBe(2);
       expect(response.body.total).toBe(2);
       expect(response.body.page).toBe(1);
       expect(response.body.limit).toBe(10);
@@ -52,7 +52,7 @@ describe('Product Controller', () => {
 
       const response = await request(app).get('/products?page=1&limit=2');
       expect(response.status).toBe(200);
-      expect(response.body.items.length).toBe(2);
+      expect(response.body.data.length).toBe(2);
       expect(response.body.total).toBe(5);
       expect(response.body.totalPages).toBe(3);
     });
