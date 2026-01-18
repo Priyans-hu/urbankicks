@@ -8,6 +8,7 @@ interface Config {
   jwtExpiresIn: string;
   nodeEnv: string;
   allowedOrigins: string[];
+  bcryptRounds: number;
 }
 
 const config: Config = {
@@ -16,6 +17,7 @@ const config: Config = {
   jwtSecret: process.env.JWT_SECRET || '',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '24h',
   nodeEnv: process.env.NODE_ENV || 'development',
+  bcryptRounds: parseInt(process.env.BCRYPT_ROUNDS || '10', 10),
   allowedOrigins: [
     'http://localhost:8080',
     'http://localhost:3000',

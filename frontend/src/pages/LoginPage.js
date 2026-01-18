@@ -30,11 +30,10 @@ const LoginPage = () => {
 
     const onSubmit = async (data) => {
         try {
-            const res = await handleLogin(data);
-            console.log(res);
+            await handleLogin(data);
             navigate('/');
         } catch (error) {
-            console.error(error);
+            // Error handled by useLogin hook
         }
     };
 

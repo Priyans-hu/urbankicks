@@ -12,7 +12,7 @@ const CartItemCard = ({ item, cartItems, setCartItems, userId }) => {
             await cartApi.removeItemFromCart(userId, itemId);
             setCartItems(prevCartItems => prevCartItems.filter(item => item._id !== itemId));
         } catch (error) {
-            console.error('Error removing item from cart:', error);
+            // Error handled silently
         }
     };
 
@@ -21,7 +21,7 @@ const CartItemCard = ({ item, cartItems, setCartItems, userId }) => {
             await cartApi.updateItemQuantity(userId, itemId, newQuantity);
             setCartItems(cartItems.map(item => item._id === itemId ? { ...item, quantity: newQuantity } : item));
         } catch (error) {
-            console.error('Error updating cart item quantity:', error);
+            // Error handled silently
         }
     };
 

@@ -52,8 +52,7 @@ export const getCartByUserId = async (req: AuthRequest, res: Response): Promise<
       data: populatedCart
     });
   } catch (error) {
-    console.error('getCartByUserId:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -105,8 +104,7 @@ export const addItemToCart = async (req: AuthRequest, res: Response): Promise<vo
       data: cart
     });
   } catch (error) {
-    console.error('addItemToCart:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -158,8 +156,7 @@ export const removeItemFromCart = async (req: AuthRequest, res: Response): Promi
       data: cart
     });
   } catch (error) {
-    console.error('removeItemFromCart:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -219,8 +216,7 @@ export const updateItemInCart = async (req: AuthRequest, res: Response): Promise
       data: cart
     });
   } catch (error) {
-    console.error('updateItemInCart:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -259,8 +255,7 @@ export const clearCart = async (req: AuthRequest, res: Response): Promise<void> 
       data: cart
     });
   } catch (error) {
-    console.error('clearCart:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });

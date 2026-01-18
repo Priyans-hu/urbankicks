@@ -34,7 +34,7 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
       return;
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, config.bcryptRounds);
 
     const newUser = new User({
       username,
@@ -65,8 +65,7 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
       }
     });
   } catch (error) {
-    console.error('registerUser:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -112,8 +111,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       user: { email: user.email }
     });
   } catch (error) {
-    console.error('loginUser:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -128,8 +126,7 @@ export const logoutUser = async (_req: Request, res: Response): Promise<void> =>
       message: 'Logout successful'
     });
   } catch (error) {
-    console.error('logoutUser:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -160,8 +157,7 @@ export const getUserDetails = async (req: Request, res: Response): Promise<void>
       }
     });
   } catch (error) {
-    console.error('getUserDetails:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -190,8 +186,7 @@ export const getUserDetailsFromId = async (req: Request, res: Response): Promise
       }
     });
   } catch (error) {
-    console.error('getUserDetailsFromId:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });
@@ -214,7 +209,7 @@ export const updateUser = async (req: AuthRequest, res: Response): Promise<void>
     }
 
     if (password) {
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, config.bcryptRounds);
       user.password = hashedPassword;
     }
 
@@ -238,8 +233,7 @@ export const updateUser = async (req: AuthRequest, res: Response): Promise<void>
       }
     });
   } catch (error) {
-    console.error('updateUser:', error);
-    res.status(500).json({
+        res.status(500).json({
       success: false,
       message: 'Internal Server Error'
     });

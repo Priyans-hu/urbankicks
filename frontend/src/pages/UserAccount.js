@@ -21,7 +21,7 @@ const UserAccount = () => {
                 const ordersResponse = await OrderApi.getUserOrders(userResponse.id);
                 setUserOrders(ordersResponse.data);
             } catch (error) {
-                console.error('Error fetching user details or orders:', error);
+                // Error handled silently - user details will show loading state
             } finally {
                 setLoading(false);
             }
@@ -40,7 +40,7 @@ const UserAccount = () => {
             setUserInfo(editedUserInfo);
             setEditMode(false);
         } catch (error) {
-            console.error('Error updating user details:', error);
+            // Error handled silently
         }
     };
 

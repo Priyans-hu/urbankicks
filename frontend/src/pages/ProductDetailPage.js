@@ -19,7 +19,7 @@ const ProductDetailPage = () => {
                 const response = await ProductApi.getProductById(productId);
                 setProductDetails(response.data);
             } catch (error) {
-                console.error('Error fetching product details:', error);
+                // Error handled silently - product will show loading state
             }
         };
 
@@ -44,11 +44,9 @@ const ProductDetailPage = () => {
                     draggable: true,
                 });
             } else {
-                console.error('Failed to create order:', response.data);
                 toast.error('Failed to place order. Please try again.');
             }
         } catch (error) {
-            console.error('Error placing order:', error);
             toast.error('An error occurred. Please try again.', { position: 'bottom-right' });
         }
     }
@@ -75,7 +73,6 @@ const ProductDetailPage = () => {
                 draggable: true,
             });
         } catch (error) {
-            console.error('Error adding to cart:', error);
             toast.error('Failed to add to cart. Please try again.', {
                 position: 'bottom-right',
                 autoClose: 4000,
