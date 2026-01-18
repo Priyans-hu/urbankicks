@@ -29,20 +29,29 @@ const Header = ( { toShow = true } ) => {
             // User is authenticated, show Logout button
             return (
                 <a href="/">
-                    <div className='cursor-pointer bg-gray-300 p-2 rounded-full' onClick={logout}>
+                    <button
+                        className='cursor-pointer bg-gray-300 p-2 rounded-full'
+                        onClick={logout}
+                        data-testid="header-logout-btn"
+                        aria-label="Logout from account"
+                    >
                         <span className='hidden sm:inline'>👋 </span>
-                        <span role="img" aria-label="Logout">Logout</span>
-                    </div>
+                        <span>Logout</span>
+                    </button>
                 </a>
             );
         } else {
             // User is not authenticated, show Login button
             return (
                 <a href="/login">
-                    <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
+                    <button
+                        className='cursor-pointer bg-gray-300 p-2 rounded-full'
+                        data-testid="header-login-btn"
+                        aria-label="Login to account"
+                    >
                         <span className='hidden sm:inline'>👤 </span>
-                        <span role="img" aria-label="Login">Login</span>
-                    </div>
+                        <span>Login</span>
+                    </button>
                 </a>
             );
         }
@@ -70,6 +79,8 @@ const Header = ( { toShow = true } ) => {
                         <button
                             className='cursor-pointer bg-gray-300 p-2 rounded-full'
                             onClick={toggleTheme}
+                            data-testid="header-theme-toggle-btn"
+                            aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'}
                         >
                             {isDarkTheme ? '☀️' : '🌙'}
                         </button>
@@ -77,7 +88,7 @@ const Header = ( { toShow = true } ) => {
                 </div>
                 <div>
                     <Tooltip title='Visit Cart'>
-                        <a href="/cart">
+                        <a href="/cart" data-testid="header-cart-link" aria-label="Go to shopping cart">
                             <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
                                 <span role="img" aria-label="Cart">🛒</span>
                             </div>
@@ -86,9 +97,9 @@ const Header = ( { toShow = true } ) => {
                 </div>
                 <div>
                     <Tooltip title='Check Account'>
-                        <a href="/myaccount">
+                        <a href="/myaccount" data-testid="header-account-link" aria-label="Go to my account">
                             <div className='cursor-pointer bg-gray-300 p-2 rounded-full'>
-                                <span role="img" aria-label="myAccount">👤</span>
+                                <span role="img" aria-label="My account">👤</span>
                             </div>
                         </a>
                     </Tooltip>

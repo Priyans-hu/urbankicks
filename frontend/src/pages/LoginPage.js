@@ -50,14 +50,17 @@ const LoginPage = () => {
                         </div>
                         <form className='flex flex-col w-2/3 xl:w-1/2' onSubmit={handleSubmit(onSubmit)}>
                             <div className="mb-4">
-                                <input 
-                                    type="text" 
-                                    id="email" 
-                                    {...register('email')} 
-                                    className={`mt-1 p-2 w-full border border-gray-700 rounded-full py-3 px-6 ${errors.email ? 'border-red-500' : ''}`} 
-                                    placeholder='Email' 
+                                <input
+                                    type="email"
+                                    id="email"
+                                    {...register('email')}
+                                    className={`mt-1 p-2 w-full border border-gray-700 rounded-full py-3 px-6 ${errors.email ? 'border-red-500' : ''}`}
+                                    placeholder='Email'
+                                    data-testid="login-email-input"
+                                    aria-label="Email address"
+                                    autoComplete="email"
                                 />
-                                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+                                {errors.email && <p className="text-red-500 text-sm mt-1" role="alert">{errors.email.message}</p>}
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="password" className="sr-only">
@@ -70,21 +73,28 @@ const LoginPage = () => {
                                         {...register('password')}
                                         className={`mt-1 p-2 w-full border rounded-full py-3 px-6 ${errors.password ? 'border-red-500' : 'border-gray-800'}`}
                                         placeholder='Password'
+                                        data-testid="login-password-input"
+                                        aria-label="Password"
+                                        autoComplete="current-password"
                                     />
                                     <button
                                         type="button"
                                         onClick={handleTogglePassword}
                                         className="absolute inset-y-0 right-0 mx-5 flex justify-center items-center text-gray-500 cursor-pointer"
+                                        data-testid="login-toggle-password-btn"
+                                        aria-label={showPassword ? "Hide password" : "Show password"}
                                     >
                                         {showPassword ? <i className="fas fa-eye-slash"></i> : <i className="fas fa-eye"></i>}
                                     </button>
                                 </div>
-                                {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+                                {errors.password && <p className="text-red-500 text-sm mt-1" role="alert">{errors.password.message}</p>}
                             </div>
                             <button
                                 type="submit"
                                 className="bg-black text-white py-3 px-6 rounded-full focus:outline-none focus:ring focus:border-gray-600 w-full"
                                 disabled={loading}
+                                data-testid="login-submit-btn"
+                                aria-label={loading ? 'Logging in, please wait' : 'Log in to your account'}
                             >
                                 {loading ? 'Logging In...' : 'Log In'}
                             </button>
@@ -105,8 +115,9 @@ const LoginPage = () => {
                     <div className='rounded-3xl max-h-[90%] max-w-[90%] overflow-hidden'>
                         <img
                             src='https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                            alt=''
+                            alt='Colorful sneakers collection'
                             className='rounded-xl shadow-2xl shadow-gray-300'
+                            loading="lazy"
                         />
                     </div>
                 </div>

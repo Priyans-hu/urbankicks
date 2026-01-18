@@ -33,6 +33,9 @@ coverage
 # dotenv environment variables file
 .env
 
+# TypeScript build output
+dist/
+
 # Thumbnails
 Thumbs.db
 

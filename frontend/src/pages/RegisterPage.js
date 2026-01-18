@@ -70,18 +70,30 @@ const MultiStepRegister = () => {
                                 {step === 2 && <StepTwo />}
                                 <div className="flex justify-between mt-4">
                                     {step > 1 && (
-                                        <button type="button" onClick={handleBack} className="bg-gray-500 text-white py-3 px-6 rounded-full focus:outline-none focus:ring">
+                                        <button
+                                            type="button"
+                                            onClick={handleBack}
+                                            className="bg-gray-500 text-white py-3 px-6 rounded-full focus:outline-none focus:ring"
+                                            data-testid="register-back-btn"
+                                            aria-label="Go back to previous step"
+                                        >
                                             Back
                                         </button>
                                     )}
-                                    <button type="submit" className="bg-black  w-1/3 text-white py-3 px-6 rounded-full focus:outline-none focus:ring" disabled={loading}>
+                                    <button
+                                        type="submit"
+                                        className="bg-black w-1/3 text-white py-3 px-6 rounded-full focus:outline-none focus:ring"
+                                        disabled={loading}
+                                        data-testid="register-submit-btn"
+                                        aria-label={loading ? 'Processing registration' : step === 2 ? 'Complete registration' : 'Go to next step'}
+                                    >
                                         {loading ? 'Processing...' : step === 2 ? 'Register' : 'Next'}
                                     </button>
                                 </div>
                             </form>
                         </FormProvider>
                         {error && (
-                            <p className="text-red-500 mt-2">
+                            <p className="text-red-500 mt-2" role="alert">
                                 Error: {error}
                             </p>
                         )}
@@ -94,8 +106,9 @@ const MultiStepRegister = () => {
                     <div className='rounded-3xl max-h-[90%] max-w-[90%] overflow-hidden'>
                         <img
                             src='https://images.unsplash.com/photo-1512374382149-233c42b6a83b?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                            alt=''
+                            alt='Stylish sneakers on display'
                             className='shadow-2xl shadow-gray-300'
+                            loading="lazy"
                         />
                     </div>
                 </div>
